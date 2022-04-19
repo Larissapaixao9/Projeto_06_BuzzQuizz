@@ -1,0 +1,95 @@
+body{
+    background-color: #FAFAFA;
+    font-family: 'Roboto';
+}
+.topo{
+    width: 100%;
+    height: 69px;
+    background-color: #EC362D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    margin-bottom: 7%;
+    box-shadow: 5px 4px #d1cdcd;
+}
+.site-name{
+    font-size: 37px;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+.meus-quizzes{
+    background-color: #FAFAFA;
+    border: 1px dashed #D4D4D4;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 1051px;
+    height: 181px;
+   
+}
+.my-quiz-text1{
+    color: #B9B9B9;
+    font-size: 20px;
+    font-weight: 400;
+    
+}
+.criarQuizzText{
+    color: #EC362D;
+    font-weight: 400;
+    font-size: 21px;
+    border: 1px dashed #EC362D;
+    padding: 2px;
+    width: 151px;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    margin-top: 0%;
+    cursor: pointer;
+}
+
+
+.todos-quizzesText{
+    margin-left: 14%;
+    font-size: 20px;
+}
+.pcaixa{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
+}
+.pcaixa>img{
+    margin-left: 12px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    position: relative;
+   
+}
+a{
+    text-decoration: none;
+    color: #FFFFFF
+}
+.texto{
+    color: #FFFFFF;
+    position: absolute;
+    z-index: 1;
+    font-size: 19px;
+}
+.texto-imagem1{
+    color: #FFFFFF;
+    position: absolute;
+    bottom: 20%;
+    left: 230px;
+    z-index: 1;
+    font-size: 19px;
+}
+.imagem2{
+    bottom: 22%;
+}
+.imagem3{
+    left: 65%;
+    bottom: 20%;
+}
