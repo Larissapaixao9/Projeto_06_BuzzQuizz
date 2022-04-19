@@ -93,3 +93,20 @@ a{
     left: 65%;
     bottom: 20%;
 }
+
+
+
+@media(max-width:1100px){
+    .pcaixa{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    .topo{
+        width: 100%;
+    }
+    .meus-quizzes{
+        width: 90%;
+        height: 181px;
+    }
+}
