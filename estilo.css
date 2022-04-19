@@ -50,7 +50,6 @@ body{
     cursor: pointer;
 }
 
-
 .todos-quizzesText{
     margin-left: 14%;
     font-size: 20px;
@@ -59,40 +58,32 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
- 
+  
 }
 .pcaixa>img{
     margin-left: 12px;
     margin-bottom: 12px;
     cursor: pointer;
-    position: relative;
-   
+    width: 100%;
 }
 a{
     text-decoration: none;
     color: #FFFFFF
 }
-.texto{
-    color: #FFFFFF;
+
+.textOverlay{
+    position: relative;
+    margin-left: 14px;
+    margin-bottom: 14px;
+}
+.overlayText{
     position: absolute;
-    z-index: 1;
+    bottom: 0px;
+    color: white;
+    left: 10%;
     font-size: 19px;
 }
-.texto-imagem1{
-    color: #FFFFFF;
-    position: absolute;
-    bottom: 20%;
-    left: 230px;
-    z-index: 1;
-    font-size: 19px;
-}
-.imagem2{
-    bottom: 22%;
-}
-.imagem3{
-    left: 65%;
-    bottom: 20%;
-}
+
 
 
 
