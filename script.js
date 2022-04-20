@@ -1,11 +1,12 @@
 // cria a homepage com meus quizzer e outros quizzes
 function homePage(){
     document.querySelector(".page").innerHTML=` <div class="myQuizzes">
-    <p class="myQuizText1">Você não criou nenhum quizz ainda :(</p>
+    <p class="myQuizText1">Você não criou nenhum <br> quizz ainda :(</p>
     <p class="criarQuizzText" onclick="creationPage()">Criar Quizz</p>
     </div>
-
-    <p class="todos-quizzesText"> <strong>Todos os quizzes</strong></p>
+    <div class="textQuizzTitle"
+    <p class="todos-quizzesText"> Todos os quizzes</p>
+    </div>
     <div class="demais-quizzes">
        <div class="pcaixa">
             <img id="a" src="quiz1.png" />
