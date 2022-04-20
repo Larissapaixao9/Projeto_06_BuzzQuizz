@@ -1,0 +1,139 @@
+body{
+    background-color: #FAFAFA;
+    font-family: 'Roboto';
+}
+h1{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 37px;
+    line-height: 43px;
+    color: #FFFFFF;
+}
+h2{
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+}
+h3{
+    font-style: italic;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 22px;
+}
+a{
+    text-decoration: none;
+    color: #FFFFFF
+}
+input{
+    margin-top: 15px;
+    width: 50%;
+}
+.gray{
+    color: #BABABA;
+}
+.header{
+    width: 100%;
+    height: 69px;
+    background-color: #EC362D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    margin-bottom: 7%;
+    box-shadow: 0px 4px 3px #d1cdcd;
+}
+.siteName{
+    font-size: 37px;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+.page{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.myQuizzes{
+    background-color: #FAFAFA;
+    border: 1px dashed #D4D4D4;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 1051px;
+    height: 181px;
+}
+.myQuizText{
+    color: #B9B9B9;
+    font-size: 20px;
+    font-weight: 400;
+    
+}
+.criarQuizzText{
+    color: #EC362D;
+    font-weight: 400;
+    font-size: 21px;
+    border: 1px dashed #EC362D;
+    padding: 2px;
+    width: 151px;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    margin-top: 0%;
+    cursor: pointer;
+}
+.todos-quizzesText{
+    margin-left: 14%;
+    font-size: 20px;
+}
+.pcaixa{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
+}
+.pcaixa>img{
+    margin-left: 12px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    position: relative;
+   
+}
+.texto{
+    color: #FFFFFF;
+    position: absolute;
+    z-index: 1;
+    font-size: 19px;
+}
+.texto-imagem1{
+    color: #FFFFFF;
+    position: absolute;
+    bottom: 20%;
+    left: 230px;
+    z-index: 1;
+    font-size: 19px;
+}
+.imagem2{
+    bottom: 22%;
+}
+.imagem3{
+    left: 65%;
+    bottom: 20%;
+}
+
+
+@media(max-width:1100px){
+    .pcaixa{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    .topo{
+        width: 100%;
+    }
+    .meus-quizzes{
+        width: 90%;
+        height: 181px;
+    }
+}
