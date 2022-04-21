@@ -24,10 +24,11 @@ function printQuizzes(quizzes){
     listaQuizz = quizzes.data;
     console.log(quizzes.data);
     for(i = 0; i < listaQuizz.length; i++){     // ADICIONAR OS QUIZZES DO SERVER
-        oQuizzes.innerHTML += 
-        ` <button onclick="showQuizz(${i})" class="quizzBox"> 
-            <img src="${listaQuizz[i].image}" alt="thumb">
-            <h1 class="QuizzTitle white"> ${listaQuizz[i].title} </h1>
+        oQuizzes.innerHTML += ` 
+        <button onclick="showQuizz(${i})" class="quizzBox"> 
+        <img src="${listaQuizz[i].image}" alt="thumb"> 
+        <div class="gradient"></div> 
+        <h1 class="QuizzTitle white"> ${listaQuizz[i].title} </h1>
         </button>`
     }
 }
@@ -38,17 +39,31 @@ function showQuizz(index){
     document.querySelector(".page").innerHTML = `teste1`;
 }
 
+// function creationPage(){
+//     document.querySelector(".page").innerHTML=`
+//     <h2>Comece pelo começo</h2>
+//     <div class="whiteBox">
+//         <input id="a1" placeholder="Título do seu quizz" type="text" minlength="20" maxlength="65" required>
+//         <input id="a2" placeholder="URL da imagem do seu quizz" type="URL" required>
+//         <input id="a3" placeholder="Quantidade de perguntas do quizz" type="text">
+//         <input id="a4" placeholder="Quantidade de níveis do quizz" type="text">
+//     </div>  
+//     <button class="redBox" onclick="questionCreationPage()">Prosseguir pra criar perguntas</button>
+//     `;
+// }
 function creationPage(){
     document.querySelector(".page").innerHTML=`
     <h2>Comece pelo começo</h2>
-    <div class="whiteBox">
-        <input id="a1" placeholder="Título do seu quizz" type="text" minlength="20" maxlength="65" required>
-        <input id="a2" placeholder="URL da imagem do seu quizz" type="URL" required>
-        <input id="a3"placeholder="Quantidade de perguntas do quizz" type="text">
-        <input id="a4" placeholder="Quantidade de níveis do quizz" type="text">
-    </div>  
-    <button class="redBox" onclick="questionCreationPage()">Prosseguir pra criar perguntas</button>
-    `;
+    <form class="whiteBox" method="post" action="blablabla.php">
+        <input id="a1" placeholder="Título do seu quizz" type="text">
+        <input id="a2" placeholder="URL da imagem do seu quizz" type="url" required>
+        <input id="a3" placeholder="Quantidade de perguntas do quizz" type="number" min="2">
+        <input id="a4" placeholder="Quantidade de níveis do quizz" type="number" min="2">
+        <button class="redBox">Prosseguir pra criar perguntas</button> 
+    </form>`
+    
+    //<button  onclick="questionCreationPage()"></button>
+    ;
 }
 
 function questionCreationPage(){
