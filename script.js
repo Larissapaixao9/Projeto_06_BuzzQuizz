@@ -10,7 +10,7 @@ function homePage(){
     <div class="other-quizzes"></div>
     </div>`;
 }
-homePage();
+
 function getQuizzes(){
     let promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
     promise.then(printQuizzes);
@@ -26,14 +26,23 @@ function printQuizzes(quizzes){
 }
 function creationPage(){
     document.querySelector(".page").innerHTML=`
-        
-        <h2>Comece pelo começo</h2>
-        <input placeholder="Título do seu quizz" type="text">
+    <h2>Comece pelo começo</h2>
+    <div class="whiteBox">
+        <input id="a1" placeholder="Título do seu quizz" type="text">
         <input placeholder="URL da imagem do seu quizz" type="text">
         <input placeholder="Quantidade de perguntas do quizz" type="text">
         <input placeholder="Quantidade de níveis do quizz" type="text">
+    </div>  
+    <button class="redBox" onclick="questionCreationPage()">Prosseguir pra criar perguntas</button>
     `;
 }
-getQuizzes();
 
-addEventListener('click', openQuizz());
+//addEventListener('click', openQuizz());
+function questionCreationPage(){
+    let Titulo=document.getElementById("a1").value;
+    alert(Titulo);
+}
+
+//Codigo executado ao iniciar
+homePage();
+getQuizzes();

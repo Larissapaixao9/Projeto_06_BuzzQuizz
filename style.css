@@ -29,8 +29,14 @@ a{
     color: #FFFFFF
 }
 input{
-    margin-top: 15px;
-    width: 50%;
+    box-sizing: border-box;
+    margin: 10px;
+    background: #FFFFFF;
+    border: 1px solid #D1D1D1;
+    border-radius: 5px;
+    height: 46px;
+    padding:15px;
+    width: 100%;
 }
 button{
     border: none;
@@ -49,11 +55,6 @@ button{
     font-weight: 700;
     margin-bottom: 7%;
     box-shadow: 0px 4px 3px #d1cdcd;
-}
-.siteName{
-    font-size: 37px;
-    color: #FFFFFF;
-    cursor: pointer;
 }
 .page{
     display: flex;
@@ -82,7 +83,6 @@ button{
     font-size: 20px;
     text-align: center;
 }
-
 .criarQuizzText{
     display: flex;
     align-items: center;
@@ -98,6 +98,27 @@ button{
     text-align: center;
     margin-top: 34px;
     cursor: pointer;
+}
+.whiteBox{
+    margin:15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding:10px;
+    width:60%;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+.redBox{
+    height: 46px;
+    border:none;
+    padding: 15px;
+    color: #FFFFFF;
+    margin-top: 20px;
+    background: #EC362D;
+    border-radius: 15px;
 }
 .textQuizzTitle{
     margin: 14px;
@@ -119,7 +140,7 @@ button{
     position: relative;
 }
 .quizzBox>img{  
-    background-image: -webkit-linear-gradient(to top, transparent, black);
+    background: linear-gradient(to top, transparent, black);
     border-radius: 6px;
     width: 340px;
     height: 180px;
