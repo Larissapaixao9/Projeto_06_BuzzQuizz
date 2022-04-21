@@ -44,12 +44,12 @@ input{
     padding:15px;
     width: 100%;
 }
-input:invalid {
-    border: 2px dashed red;
-  }
-  input:invalid:focus {
-    background-image: linear-gradient(pink, lightgreen);
-  }
+input:valid:focus{
+    background-color: lightskyblue;
+}
+input:invalid:focus {
+    background-color: lightcoral;
+}
 button{
     border: none;
     background-color: transparent;
