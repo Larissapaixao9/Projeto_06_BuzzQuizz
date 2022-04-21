@@ -12,6 +12,7 @@ h1{
     font-size: 37px;
     line-height: 43px;
     color: #FFFFFF;
+    cursor: pointer;
 }
 h2{
     font-weight: 700;
@@ -101,7 +102,6 @@ button{
 }
 .whiteBox{
     margin:15px;
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: space-around;

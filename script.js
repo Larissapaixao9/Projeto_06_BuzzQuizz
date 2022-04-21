@@ -1,5 +1,5 @@
 let listaQuizz = []
-// cria a homepage com meus quizzer e outros quizzes
+// cria a homepage com meus quizzes e outros quizzes
 function homePage(){
     document.querySelector(".page").innerHTML=` <div class="myQuizzes">
     <p class="myQuizText1">Você não criou nenhum <br> quizz ainda :(</p>
@@ -10,6 +10,7 @@ function homePage(){
     </div>
     <div class="other-quizzes"></div>
     </div>`;
+    getQuizzes();
 }
 
 function getQuizzes(){
@@ -57,4 +58,4 @@ function questionCreationPage(){
 
 //Codigo executado ao iniciar
 homePage();
-getQuizzes();
+
