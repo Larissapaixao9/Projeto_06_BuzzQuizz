@@ -11,7 +11,6 @@ h1{
     font-weight: 700;
     font-size: 37px;
     line-height: 43px;
-    color: #FFFFFF;
     cursor: pointer;
 }
 h2{
@@ -24,6 +23,12 @@ h3{
     font-weight: 400;
     font-size: 19px;
     line-height: 22px;
+}
+h4{
+    color: #B9B9B9;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
 }
 a{
     text-decoration: none;
@@ -39,12 +44,27 @@ input{
     padding:15px;
     width: 100%;
 }
+input:invalid {
+    border: 2px dashed red;
+  }
+  input:invalid:focus {
+    background-image: linear-gradient(pink, lightgreen);
+  }
 button{
     border: none;
     background-color: transparent;
 }
 .gray{
     color: #BABABA;
+}
+.red{
+    color:red;
+}
+.green{
+    color:green;
+}
+.white{
+    color: white;
 }
 .header{
     width: 100%;
@@ -73,17 +93,18 @@ button{
     width: 1050px;
     height: 181px;
 }
-.myQuizText{
+/* .myQuizText{
     color: #B9B9B9;
     font-size: 20px;
     font-weight: 400;
+    text-align: center;
     
 }
 .myQuizText1{
     color: #B9B9B9;
     font-size: 20px;
-    text-align: center;
-}
+   
+} */
 .criarQuizzText{
     display: flex;
     align-items: center;
