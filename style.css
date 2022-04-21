@@ -134,6 +134,7 @@ button{
     row-gap: 6px;
 }
 .quizzBox{
+    border-radius: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -144,17 +145,18 @@ button{
     border-radius: 6px;
     width: 340px;
     height: 180px;
-    margin-left: 12px;
-    margin-bottom: 12px;
     cursor: pointer;
 }
 .quizzBox>h1{
+    max-width: 300px;
     position: absolute;
     z-index: 1;
-    bottom: 12px;
-    left: 26px;
+    bottom: 6px;
+    left: 24px;
     font-size: 18px;
     line-height: 25px;
+    text-align: start;
+    word-wrap: break-word;
 }
 .texto{
     color: #FFFFFF;

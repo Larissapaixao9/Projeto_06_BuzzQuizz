@@ -1,3 +1,4 @@
+let listaQuizz = []
 // cria a homepage com meus quizzer e outros quizzes
 function homePage(){
     document.querySelector(".page").innerHTML=` <div class="myQuizzes">
@@ -12,15 +13,15 @@ function homePage(){
 }
 
 function getQuizzes(){
-    let promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
+    let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes');
     promise.then(printQuizzes);
 }
 function printQuizzes(quizzes){
     let oQuizzes = document.querySelector(".other-quizzes") // oQuizzes => otherQuizzes
-    const listaQuizz = quizzes.data
+    listaQuizz = quizzes.data
     console.log(quizzes.data);
     for(i = 0; i < listaQuizz.length; i++){     // ADICIONAR OS QUIZZES DO SERVER
-        oQuizzes.innerHTML += ` <button id="${listaQuizz[i].id}" class="quizzBox"> <img src="${listaQuizz[i].image}" alt="thumb">
+        oQuizzes.innerHTML += ` <button id="${listaQuizz[i].id}" onclick="idQuizz(this); showQuizz()" class="quizzBox"> <img src="${listaQuizz[i].image}" alt="thumb">
         <h1 class="QuizzTitle"> ${listaQuizz[i].title} </h1></button>`
     }
 }
@@ -37,7 +38,18 @@ function creationPage(){
     `;
 }
 
-//addEventListener('click', openQuizz());
+function idQuizz(element){
+    let id = element.id
+    console.log(element.id)
+    //console.log(listaQuizz)
+    return id
+}
+
+function showQuizz(){
+    console.log(listaQuizz.find(idQuizz))
+    document.querySelector(".page").innerHTML = `teste1`
+}
+
 function questionCreationPage(){
     let Titulo=document.getElementById("a1").value;
     alert(Titulo);
