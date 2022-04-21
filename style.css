@@ -102,17 +102,33 @@ input{
     text-align: start;
     font-size: 20px;
 }
-.pcaixa{
+.other-quizzes{
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 6px;
+}
+.quizzBox{
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
-.pcaixa>img{
+.quizzBox>img{
+    border-radius: 6px;
+    width: 340px;
+    height: 180px;
     margin-left: 12px;
     margin-bottom: 12px;
     cursor: pointer;
-    position: relative;
-   
+}
+.quizzBox>h1{
+    position: absolute;
+    z-index: 1;
+    bottom: 12px;
+    left: 26px;
+    font-size: 18px;
+    line-height: 25px;
 }
 .texto{
     color: #FFFFFF;
