@@ -7,32 +7,21 @@ function homePage(){
     <div class="textQuizzTitle"
     <p class="all-quizzesText"> Todos os quizzes</p>
     </div>
-    <div class="other-quizzes">
-       <div class="pcaixa">
-            <img id="a" src="quiz1.png" />
-            <img src="quiz2.png" />
-            <img src="quiz1.png" />
-       </div>
-    <div class="pcaixa">
-        <img src="quiz1.png" />
-        <img src="quiz2.png" />
-        <img src="quiz1.png" />
-    </div>
+    <div class="other-quizzes"></div>
     </div>`;
 }
 homePage();
 function getQuizzes(){
     let promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
     promise.then(printQuizzes);
-    //promise.catch(alert("get error"));
 }
 function printQuizzes(quizzes){
     let oQuizzes = document.querySelector(".other-quizzes") // oQuizzes => otherQuizzes
     const listaQuizz = quizzes.data
     console.log(quizzes.data);
     for(i = 0; i < listaQuizz.length; i++){     // ADICIONAR OS QUIZZES DO SERVER
-        oQuizzes.innerHTML += ` <div class="quizzBox"> <img src="${listaQuizz[i].image}" alt="thumb">
-        <h1 class="QuizzTitle"> ${listaQuizz[i].title} </h1>`
+        oQuizzes.innerHTML += ` <button id="${listaQuizz[i].id}" class="quizzBox"> <img src="${listaQuizz[i].image}" alt="thumb">
+        <h1 class="QuizzTitle"> ${listaQuizz[i].title} </h1></button>`
     }
 }
 function creationPage(){
@@ -46,3 +35,5 @@ function creationPage(){
     `;
 }
 getQuizzes();
+
+addEventListener('click', openQuizz());

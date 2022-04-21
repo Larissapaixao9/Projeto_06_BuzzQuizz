@@ -32,10 +32,13 @@ input{
     margin-top: 15px;
     width: 50%;
 }
+button{
+    border: none;
+    background-color: transparent;
+}
 .gray{
     color: #BABABA;
 }
-
 .header{
     width: 100%;
     height: 70px;
@@ -107,6 +110,7 @@ input{
     display: flex;
     flex-wrap: wrap;
     column-gap: 6px;
+    row-gap: 6px;
 }
 .quizzBox{
     display: flex;
@@ -114,7 +118,8 @@ input{
     align-items: center;
     position: relative;
 }
-.quizzBox>img{
+.quizzBox>img{  
+    background-image: -webkit-linear-gradient(to top, transparent, black);
     border-radius: 6px;
     width: 340px;
     height: 180px;
