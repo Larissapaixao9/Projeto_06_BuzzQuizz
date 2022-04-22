@@ -98,7 +98,10 @@ function readQuizzPg1() {
         alert('Mínimo de 2 níveis');
         return;
     }
+    console.log("title: "+title);
     createdQuizz.title=title;
+
+    console.log("createdquizz.title: "+createdQuizz.title);
     createdQuizz.image=image;
     createQuizzPg2();
 }
@@ -151,14 +154,14 @@ function readQuizzPg2() {
         answer.isCorrectAnswer=false;
         question.answers[1]=answer;
         //QUANTAS RESPOSTAS???????????????????!!!!!!!!!!!
-        // answer.text=document.getElementById(`a${i+1}7`).value;
-        // answer.image=document.getElementById(`a${i+1}8`).value;
-        // answer.isCorrectAnswer=false;
-        // question.answers[2]=answer;
-        // answer.text=document.getElementById(`a${i+1}9`).value;
-        // answer.image=document.getElementById(`a${i+1}10`).value;
-        // answer.isCorrectAnswer=false;
-        // question.answers[3]=answer;
+        answer.text=document.getElementById(`a${i+1}7`).value;
+        answer.image=document.getElementById(`a${i+1}8`).value;
+        answer.isCorrectAnswer=false;
+        question.answers[2]=answer;
+        answer.text=document.getElementById(`a${i+1}9`).value;
+        answer.image=document.getElementById(`a${i+1}10`).value;
+        answer.isCorrectAnswer=false;
+        question.answers[3]=answer;
 
         createdQuizz.questions[i]=question;
     }
