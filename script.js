@@ -45,25 +45,60 @@ function getQuizzes(){ //faz get na lista de quizzes
     promise.then(printQuizzes);
 }
 
-function printQuizzes(quizzes){ //mostra a lista de quizzes no html
+function printQuizzes(quizzes){
     let oQuizzes = document.querySelector(".other-quizzes"); // oQuizzes => otherQuizzes
     listaQuizz = quizzes.data;
-    console.log(quizzes.data);
+    level=quizzes.data.levels
+    questions=quizzes.data.questions
+    console.log(quizzes.data.questions);
     for(i = 0; i < listaQuizz.length; i++){     // ADICIONAR OS QUIZZES DO SERVER
         oQuizzes.innerHTML += ` 
         <button onclick="showQuizz(${i})" class="quizzBox"> 
         <img src="${listaQuizz[i].image}" alt="thumb"> 
         <div class="gradient"></div> 
         <h1 class="QuizzTitle white"> ${listaQuizz[i].title} </h1>
+       
         </button>`
+       
     }
-}
-
-function showQuizz(index){ //mostra o quizz clicado
+  }
+  function renderizar(titleQuestion,imageQuestion){
+    return `<div class=""gradient">
+            <img src="${imageQuestion}"/>
+            <span>${titleQuestion}</span>
+    `
+  }
+  
+  function showQuizz(index){
     console.log("console"+index);
     console.log(listaQuizz[index]);
-    document.querySelector(".page").innerHTML = `teste1`;
-}
+    const newHeader=document.querySelector(".header").classList.add("marginzero")
+    document.querySelector(".page").innerHTML = `
+    <div class="gradient2"></div> 
+    <img class="header2" src="${listaQuizz[index].image}" alt="thumb"/> 
+    <h1 class="QuizzTitle white "> ${listaQuizz[index].title} </h1>
+   
+    `;
+    quizzId=axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${index}`)
+    quizzId.then(teladeperguntas)
+  }
+  
+    function teladeperguntas(resultado){
+        const dadosdoQuizz=resultado.data;
+        level=dadosdoQuizz.levels;
+        id=dadosdoQuizz.id;
+        window.scrollTo(0,0)
+  
+        for(let i=0;i<dadosdoQuizz.questions.length;i++){
+            const questionsBox=document.querySelector(".questionsBox");
+            questionsBox.innerHTML+=
+            `<div class="perguntas">
+            <div style="background-color: ${dadosdoQuizz.questions[i].color}" class="tituloP">
+            ${dadosdoQuizz.questions[i].title}</div>
+            <div class="all"></div>
+            `
+        }
+    }
 
 function createQuizzPg1(){
     document.querySelector(".page").innerHTML=`
