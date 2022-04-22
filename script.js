@@ -183,10 +183,11 @@ function createQuizzPg3(){
             <input id="a${i+1}4" type="text" placeholder="Descrição do nível">
         </div>
     `;
+    }
     document.querySelector(".page").innerHTML+=`
     <button class="redBox" onclick="readQuizzPg3()">Finalizar Quizz</button>
     `;
-    }
+    
     
 }
 function readQuizzPg3() {
