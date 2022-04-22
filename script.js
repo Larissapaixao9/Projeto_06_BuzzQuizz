@@ -155,7 +155,6 @@ function readQuizzPg2() {
         answer.image=document.getElementById(`a${i+1}6`).value;
         answer.isCorrectAnswer=false;
         question.answers[1]=answer;
-        //QUANTAS RESPOSTAS???????????????????!!!!!!!!!!!
         answer.text=document.getElementById(`a${i+1}7`).value;
         answer.image=document.getElementById(`a${i+1}8`).value;
         answer.isCorrectAnswer=false;
