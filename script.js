@@ -45,21 +45,17 @@ function getQuizzes(){ //faz get na lista de quizzes
     promise.then(printQuizzes);
 }
 
-function printQuizzes(quizzes){
+function printQuizzes(quizzes){ //mostra a lista de quizzes no html
     let oQuizzes = document.querySelector(".other-quizzes"); // oQuizzes => otherQuizzes
     listaQuizz = quizzes.data;
-    level=quizzes.data.levels
-    questions=quizzes.data.questions
-    console.log(quizzes.data.questions);
+    console.log(quizzes.data);
     for(i = 0; i < listaQuizz.length; i++){     // ADICIONAR OS QUIZZES DO SERVER
         oQuizzes.innerHTML += ` 
         <button onclick="showQuizz(${i})" class="quizzBox"> 
         <img src="${listaQuizz[i].image}" alt="thumb"> 
         <div class="gradient"></div> 
         <h1 class="QuizzTitle white"> ${listaQuizz[i].title} </h1>
-       
         </button>`
-       
     }
 }
 function renderizar(titleQuestion,imageQuestion){
@@ -79,8 +75,8 @@ function showQuizz(index){
     <h1 class="QuizzTitle white "> ${listaQuizz[index].title} </h1>
    
     `;
-    quizzId=axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${index}`)
-    quizzId.then(teladeperguntas)
+    quizzId=axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${index}`);
+    quizzId.then(teladeperguntas);
 }
   
 function teladeperguntas(resultado){
