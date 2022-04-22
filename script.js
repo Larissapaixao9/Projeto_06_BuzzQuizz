@@ -134,10 +134,12 @@ function createQuizzPg2(){
             <input id="a${i+1}8" type="url" placeholder="URL de imagem 2">
             <input id="a${i+1}9" type="text" placeholder="Resposta incorreta 3">
             <input id="a${i+1}10" type="url" placeholder="URL de imagem 3">
-            <button class="redBox" onclick="readQuizzPg2();">Prosseguir pra criar níveis</button>
         </div>
     `;
     }
+    document.querySelector(".page").innerHTML+=`
+    <button class="redBox" onclick="readQuizzPg2();">Prosseguir pra criar níveis</button>
+    `;
     
 }
 function readQuizzPg2() {
@@ -179,8 +181,10 @@ function createQuizzPg3(){
             <input id="a${i+1}2" type="number" placeholder="% de acerto mínima">
             <input id="a${i+1}3" type="url" placeholder="URL da imagem do nível">
             <input id="a${i+1}4" type="text" placeholder="Descrição do nível">
-            <button class="redBox" onclick="readQuizzPg3()">Finalizar Quizz</button>
         </div>
+    `;
+    document.querySelector(".page").innerHTML+=`
+    <button class="redBox" onclick="readQuizzPg3()">Finalizar Quizz</button>
     `;
     }
     
