@@ -61,15 +61,15 @@ function printQuizzes(quizzes){
         </button>`
        
     }
-  }
-  function renderizar(titleQuestion,imageQuestion){
+}
+function renderizar(titleQuestion,imageQuestion){
     return `<div class=""gradient">
             <img src="${imageQuestion}"/>
             <span>${titleQuestion}</span>
     `
-  }
+}
   
-  function showQuizz(index){
+function showQuizz(index){
     console.log("console"+index);
     console.log(listaQuizz[index]);
     const newHeader=document.querySelector(".header").classList.add("marginzero")
@@ -81,9 +81,9 @@ function printQuizzes(quizzes){
     `;
     quizzId=axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${index}`)
     quizzId.then(teladeperguntas)
-  }
+}
   
-    function teladeperguntas(resultado){
+function teladeperguntas(resultado){
         const dadosdoQuizz=resultado.data;
         level=dadosdoQuizz.levels;
         id=dadosdoQuizz.id;
@@ -98,7 +98,7 @@ function printQuizzes(quizzes){
             <div class="all"></div>
             `
         }
-    }
+}
 
 function createQuizzPg1(){
     document.querySelector(".page").innerHTML=`
