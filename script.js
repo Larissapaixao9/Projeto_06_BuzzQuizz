@@ -6,27 +6,25 @@ let levels;
 let createdQuizz ={
 	title: "Título do quizz",
 	image: "https://http.cat/411.jpg",
-	questions: [{
-			title: "Título da pergunta 1",
-			color: "#123456",
-			answers: [
-				{
-					text: "Texto da resposta 1",
-					image: "https://http.cat/411.jpg",
-					isCorrectAnswer: true
-				}
-            ]
-    }
-    ],
-    levels: [
-        {
-        title: "Título do nível 1",
-        image: "https://http.cat/411.jpg",
-        text: "Descrição do nível 1",
-        minValue: 0
-        }
-    ]
-}
+	questions: [],
+    levels: []
+};
+let question={
+    title: "Título da pergunta 1",
+    color: "#123456",
+    answers: []
+};
+let answer={
+    text: "Texto da resposta 1",
+    image: "https://http.cat/411.jpg",
+    isCorrectAnswer: true
+};
+let level ={
+    title: "Título do nível 1",
+    image: "https://http.cat/411.jpg",
+    text: "Descrição do nível 1",
+    minValue: 0
+};
 
 function homePage(){// cria a homepage com meus quizzes e outros quizzes
     document.querySelector(".page").innerHTML=` 
@@ -117,7 +115,7 @@ function createQuizzPg2(){
     document.querySelector(".page").innerHTML=`
     <h2>Crie suas perguntas</h2>
     `;
-    for(let i =0;i<=questions;i++){
+    for(let i =0;i<questions;i++){
         document.querySelector(".page").innerHTML+=`
         <div class="whiteBox">
             <h2>Pergunta ${i+1}</h2>
@@ -140,21 +138,29 @@ function createQuizzPg2(){
     
 }
 function readQuizzPg2() {
-    for(let i =0;i<=questions;i++){
-        createdQuizz.questions[i].title=document.getElementById(`a${i+1}1`).value;
-        createdQuizz.questions[i].color=document.getElementById(`a${i+1}2`).value;
-        createdQuizz.questions[i].answers[0].text=document.getElementById(`a${i+1}3`).value;
-        createdQuizz.questions[i].answers[0].image=document.getElementById(`a${i+1}4`).value;
-        createdQuizz.questions[i].answers[0].isCorrectAnswer=true;
-        createdQuizz.questions[i].answers[1].text=document.getElementById(`a${i+1}5`).value;
-        createdQuizz.questions[i].answers[1].image=document.getElementById(`a${i+1}6`).value;
-        createdQuizz.questions[i].answers[1].isCorrectAnswer=false;
-        createdQuizz.questions[i].answers[2].text=document.getElementById(`a${i+1}7`).value;
-        createdQuizz.questions[i].answers[2].image=document.getElementById(`a${i+1}8`).value;
-        createdQuizz.questions[i].answers[2].isCorrectAnswer=false;
-        createdQuizz.questions[i].answers[3].text=document.getElementById(`a${i+1}9`).value;
-        createdQuizz.questions[i].answers[3].image=document.getElementById(`a${i+1}10`).value;
-        createdQuizz.questions[i].answers[3].isCorrectAnswer=false;
+    for(let i =0;i<questions;i++){
+        question.title=document.getElementById(`a${i+1}1`).value;
+        question.color=document.getElementById(`a${i+1}2`).value;
+        
+        answer.text=document.getElementById(`a${i+1}3`).value;
+        answer.image=document.getElementById(`a${i+1}4`).value;
+        answer.isCorrectAnswer=true;
+        question.answers[0]=answer;
+        answer.text=document.getElementById(`a${i+1}5`).value;
+        answer.image=document.getElementById(`a${i+1}6`).value;
+        answer.isCorrectAnswer=false;
+        question.answers[1]=answer;
+        //QUANTAS RESPOSTAS???????????????????!!!!!!!!!!!
+        // answer.text=document.getElementById(`a${i+1}7`).value;
+        // answer.image=document.getElementById(`a${i+1}8`).value;
+        // answer.isCorrectAnswer=false;
+        // question.answers[2]=answer;
+        // answer.text=document.getElementById(`a${i+1}9`).value;
+        // answer.image=document.getElementById(`a${i+1}10`).value;
+        // answer.isCorrectAnswer=false;
+        // question.answers[3]=answer;
+
+        createdQuizz.questions[i]=question;
     }
     createQuizzPg3();
 }
@@ -162,7 +168,7 @@ function createQuizzPg3(){
     document.querySelector(".page").innerHTML=`
     <h2>Agora, decida os níveis</h2>
     `;
-    for(let i =0;i<=levels;i++){
+    for(let i =0;i<levels;i++){
         document.querySelector(".page").innerHTML+=`
         <div class="whiteBox">
             <h2>Nível ${i+1}</h2>
@@ -170,18 +176,19 @@ function createQuizzPg3(){
             <input id="a${i+1}2" type="number" placeholder="% de acerto mínima">
             <input id="a${i+1}3" type="url" placeholder="URL da imagem do nível">
             <input id="a${i+1}4" type="text" placeholder="Descrição do nível">
-            <button class="redBox" onclick="readQuizzPg3">Finalizar Quizz</button>
+            <button class="redBox" onclick="readQuizzPg3()">Finalizar Quizz</button>
         </div>
     `;
     }
     
 }
 function readQuizzPg3() {
-    for(let i =0;i<=levels;i++){
-        createdQuizz.levels[i].title=document.getElementById(`a${i+1}1`).value;
-        createdQuizz.levels[i].minValue=document.getElementById(`a${i+1}2`).value;
-        createdQuizz.levels[i].image=document.getElementById(`a${i+1}3`).value;
-        createdQuizz.levels[i].text=document.getElementById(`a${i+1}4`).value;
+    for(let i =0;i<levels;i++){
+        level.title=document.getElementById(`a${i+1}1`).value;
+        level.minValue=document.getElementById(`a${i+1}2`).value;
+        level.image=document.getElementById(`a${i+1}3`).value;
+        level.text=document.getElementById(`a${i+1}4`).value;
+        createdQuizz.levels[i]=level;
     }
     console.log(createdQuizz);
     let promise=axios.post('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes',createdQuizz);
