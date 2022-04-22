@@ -26,6 +26,10 @@ let level ={
     minValue: 0
 };
 
+////////////////  Codigo executado ao iniciar ////////////////
+homePage();
+
+
 function homePage(){// cria a homepage com meus quizzes e outros quizzes
     document.querySelector(".page").innerHTML=` 
     <div class="myQuizzes">
@@ -96,7 +100,10 @@ function teladeperguntas(resultado){
         }
 }
 
-function createQuizzPg1(){
+///Aqui começa o createQuizz //// 
+
+function createQuizzPg1(){ //Primeira tela para criar quizz
+    
     document.querySelector(".page").innerHTML=`
     <h2>Comece pelo começo</h2>
     <div class="whiteBox">
@@ -236,6 +243,6 @@ function postedQuizz(){
     alert("great sucess");
     homePage();
 }
-//Codigo executado ao iniciar
-homePage();
+
+
 
