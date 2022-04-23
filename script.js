@@ -1,8 +1,11 @@
 let listaQuizz = []; //variavel com array dos quizzes
 let title;
 let image;
-let questions;
+let questions; 
+let correctA, questionA, pcent = 0;
 let levels;
+let quizzId;
+let questionL = 0;
 let createdQuizz ={
 	title: "Título do quizz",
 	image: "https://http.cat/411.jpg",
@@ -54,7 +57,7 @@ function printQuizzes(quizzes){ //mostra a lista de quizzes no html
     console.log(quizzes.data);
     for(i = 0; i < listaQuizz.length; i++){     // ADICIONAR OS QUIZZES DO SERVER
         oQuizzes.innerHTML += ` 
-        <button onclick="showQuizz(${i})" class="quizzBox"> 
+        <button id="${listaQuizz[i].id}" onclick="showQuizz(${i})" class="quizzBox"> 
         <img src="${listaQuizz[i].image}" alt="thumb"> 
         <div class="gradient"></div> 
         <h1 class="QuizzTitle white"> ${listaQuizz[i].title} </h1>
@@ -64,10 +67,9 @@ function printQuizzes(quizzes){ //mostra a lista de quizzes no html
 function renderizar(titleQuestion,imageQuestion){
     return `<div class=""gradient">
             <img src="${imageQuestion}"/>
-            <span>${titleQuestion}</span>
-    `
+            <span>${titleQuestion}</span>`
 }
-  
+
 function showQuizz(index){
     console.log("console"+index);
     console.log(listaQuizz[index]);
@@ -75,30 +77,66 @@ function showQuizz(index){
     document.querySelector(".page").innerHTML = `
     <div class="gradient2"></div> 
     <img class="header2" src="${listaQuizz[index].image}" alt="thumb"/> 
-    <h1 class="QuizzTitle white "> ${listaQuizz[index].title} </h1>
-   
-    `;
+    <h1 class="QuizzTitle white "> ${listaQuizz[index].title} </h1>`;
+
     quizzId=axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${index}`);
     quizzId.then(teladeperguntas);
 }
-  
+//Tela 2 responsável por mostrar as perguntas
 function teladeperguntas(resultado){
-        const dadosdoQuizz=resultado.data;
-        level=dadosdoQuizz.levels;
-        id=dadosdoQuizz.id;
-        window.scrollTo(0,0)
-  
-        for(let i=0;i<dadosdoQuizz.questions.length;i++){
-            const questionsBox=document.querySelector(".questionsBox");
-            questionsBox.innerHTML+=
-            `<div class="perguntas">
-            <div style="background-color: ${dadosdoQuizz.questions[i].color}" class="tituloP">
-            ${dadosdoQuizz.questions[i].title}</div>
-            <div class="all"></div>
+    questionL = resultado.length
+    const dadosdoQuizz=resultado.data;
+    level=dadosdoQuizz.levels;
+    id=dadosdoQuizz.id;
+    window.scrollTo(0,0)
+
+    for(let i=0;i<dadosdoQuizz.questions.length;i++){
+        const questionsBox=document.querySelector(".questionsBox");
+        questionsBox.innerHTML+=
+        `<div class="perguntas" data-id="${listaQuizz[i].index}">
+        <div style="background-color: ${dadosdoQuizz.questions[i].color}" class="titleQuestions white">
+        ${dadosdoQuizz.questions[i].title}</div>
+        <div class="all"></div> 
+        </div>`
+
+        const TotalResponses=document.querySelectorAll(".all")
+        let shuffled=dadosdoQuizz.questions[i].answers
+        shuffled.sort(shuffling)
+
+        for(let k=0;k<shuffled.length;k++){
+            TotalResponses[i].innerHTML+=`<div class="alternative" id="${shuffled[k].isCorrectAnswer}" 
+             onclick="AnswerClicked(this)">
+            <div><img class="QuestionFigure" src="${shuffled[k].image}"/></div>
+            <p class="QuestionAltenative">${shuffled[k].text}</p> </div>
             `
         }
 }
+}
+    //Embaralha as perguntas/respostas
+        function shuffling(){
+        return Math.random()-0.5;
+        }
+    
+    // Check for correct answer:
+        function AnswerClicked(answer){
+            let valid = answer.id
+            if(valid == "true"){
+                answer.classList.add('correctBorder')
+                correctA += 1;
+            } else{
+                answer.classList.add('wrongBorder')
+            }
+        questionA ++
+        console.log(questionA)
+        showResult()
+        }
 
+    // Show Results
+        function showResult(){
+            if(questionA == 3){
+               console.log(correctA/3)
+            }
+        }
 ///Aqui começa o createQuizz //// 
 
 function createQuizzPg1(){ //Primeira tela para criar quizz
@@ -271,7 +309,7 @@ function createQuizzPg3(){
             <input id="a${i+1}3" type="url" placeholder="URL da imagem do nível">
             <input id="a${i+1}4" type="text" placeholder="Descrição do nível">
         </div>
-    `;
+     `;
     }
     document.querySelector(".page").innerHTML+=`
     <button class="redBox" onclick="readQuizzPg3()">Finalizar Quizz</button>
@@ -286,9 +324,11 @@ function readQuizzPg3() {
         createdQuizz.levels[i]=level;
     }
     console.log(createdQuizz);
+    Stringify()
     let promise=axios.post('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes',createdQuizz);
     promise.then(postedQuizz());
 }
+
 function postedQuizz(){
     alert("great sucess");
     homePage();
