@@ -82,23 +82,40 @@ function showQuizz(index){
     quizzId=axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${index}`);
     quizzId.then(teladeperguntas);
 }
-  
+//Tela 2 responsável por mostrar as perguntas
 function teladeperguntas(resultado){
-        const dadosdoQuizz=resultado.data;
-        level=dadosdoQuizz.levels;
-        id=dadosdoQuizz.id;
-        window.scrollTo(0,0)
-  
-        for(let i=0;i<dadosdoQuizz.questions.length;i++){
-            const questionsBox=document.querySelector(".questionsBox");
-            questionsBox.innerHTML+=
-            `<div class="perguntas">
-            <div style="background-color: ${dadosdoQuizz.questions[i].color}" class="tituloP">
-            ${dadosdoQuizz.questions[i].title}</div>
-            <div class="all"></div>
+    const dadosdoQuizz=resultado.data;
+    level=dadosdoQuizz.levels;
+    id=dadosdoQuizz.id;
+    window.scrollTo(0,0)
+
+    for(let i=0;i<dadosdoQuizz.questions.length;i++){
+        const questionsBox=document.querySelector(".questionsBox");
+        questionsBox.innerHTML+=
+        `<div class="perguntas">
+        <div style="background-color: ${dadosdoQuizz.questions[i].color}" class="titleQuestions white">
+        ${dadosdoQuizz.questions[i].title}</div>
+        <div class="all"></div> 
+        </div>
+        `
+        const TotalResponses=document.querySelectorAll(".all")
+        let shuffled=dadosdoQuizz.questions[i].answers
+        shuffled.sort(shuffling)
+
+        for(let k=0;k<shuffled.length;k++){
+            TotalResponses[i].innerHTML+=`<div class="alternative" ${shuffled[k].isCorrectAnswer} 
+             onclick="AnswerClicked(this)">
+            <div><img class="QuestionFigure" src="${shuffled[k].image}"/></div>
+            <p class="QuestionAltenative">${shuffled[k].text}</p> </div>
             `
         }
 }
+}
+    //Embaralha as perguntas/respostas
+        function shuffling(){
+        return Math.random()-0.5;
+        }
+       
 
 ///Aqui começa o createQuizz //// 
 
