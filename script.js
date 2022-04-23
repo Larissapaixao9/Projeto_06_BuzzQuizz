@@ -1,8 +1,11 @@
 let listaQuizz = []; //variavel com array dos quizzes
 let title;
 let image;
-let questions;
+let questions; 
+let correctA, questionA, pcent = 0;
 let levels;
+let quizzId;
+let questionL = 0;
 let createdQuizz ={
 	title: "Título do quizz",
 	image: "https://http.cat/411.jpg",
@@ -26,6 +29,10 @@ let level ={
     minValue: 0
 };
 
+////////////////  Codigo executado ao iniciar ////////////////
+homePage();
+
+
 function homePage(){// cria a homepage com meus quizzes e outros quizzes
     document.querySelector(".page").innerHTML=` 
     <div class="myQuizzes">
@@ -45,74 +52,96 @@ function getQuizzes(){ //faz get na lista de quizzes
     promise.then(printQuizzes);
 }
 
-function printQuizzes(quizzes){
+function printQuizzes(quizzes){ //mostra a lista de quizzes no html
     let oQuizzes = document.querySelector(".other-quizzes"); // oQuizzes => otherQuizzes
     listaQuizz = quizzes.data;
-    level=quizzes.data.levels
-    questions=quizzes.data.questions
-    console.log(quizzes.data.questions);
+    console.log(quizzes.data);
     for(i = 0; i < listaQuizz.length; i++){     // ADICIONAR OS QUIZZES DO SERVER
         oQuizzes.innerHTML += ` 
         <button id="${listaQuizz[i].id}" onclick="showQuizz(${i})" class="quizzBox"> 
         <img src="${listaQuizz[i].image}" alt="thumb"> 
         <div class="gradient"></div> 
         <h1 class="QuizzTitle white"> ${listaQuizz[i].title} </h1>
-       
         </button>`
-       
     }
-  }
-
-  function renderizar(titleQuestion,imageQuestion){
+}
+function renderizar(titleQuestion,imageQuestion){
     return `<div class=""gradient">
             <img src="${imageQuestion}"/>
-            <span>${titleQuestion}</span>
-    `
-  }
-  
-  function showQuizz(id){
-    console.log("console"+ id);
-    console.log(listaQuizz[id]);
+            <span>${titleQuestion}</span>`
+}
+
+function showQuizz(index){
+    console.log("console"+index);
+    console.log(listaQuizz[index]);
     const newHeader=document.querySelector(".header").classList.add("marginzero")
     document.querySelector(".page").innerHTML = `
     <div class="gradient2"></div> 
-    <img class="header2" src="${listaQuizz[id].image}" alt="thumb"/> 
-    <h1 class="QuizzTitle white "> ${listaQuizz[id].title} </h1>
-   
-    `;
-    quizzId=axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`)
-    quizzId.then(teladeperguntas)
-    quizzId.catch(console.log('deu ruim'))
-  }
-  
-    function teladeperguntas(resultado){
-        const dadosdoQuizz=resultado.data;
-        level=dadosdoQuizz.levels;
-        id=dadosdoQuizz.id;
-        window.scrollTo(0,0)
-        console.log(resultado.data)
-  
-        for(let i=0;i<dadosdoQuizz.questions.length;i++){
-            const questionsBox=document.querySelector(".questionsBox");
-            questionsBox.innerHTML+=
-            `<div class="perguntas">
-            <div style="background-color: ${dadosdoQuizz.questions[i].color}" class="tituloP">
-            ${dadosdoQuizz.questions[i].title}</div>
-            <div class="all"></div>
-           `
-           for(let j=0;j<dadosdoQuizz.questions.answers.length;j++){
-            console.log(j)
-            const answersBox=document.querySelector(".answerBox");
-            questionsBox.innerHTML +=
-            `<div class="answers">
-            <div style="background-color: ${dadosdoQuizz.questions[i].answers[j]}" class="renderAns"></div>
-            <div class="all"></div>
-           `
-           }
-        }
-    }
+    <img class="header2" src="${listaQuizz[index].image}" alt="thumb"/> 
+    <h1 class="QuizzTitle white "> ${listaQuizz[index].title} </h1>`;
 
-function createQuizzPg1(){
+    quizzId=axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${index}`);
+    quizzId.then(teladeperguntas);
+}
+//Tela 2 responsável por mostrar as perguntas
+function teladeperguntas(resultado){
+    questionL = resultado.length
+    const dadosdoQuizz=resultado.data;
+    level=dadosdoQuizz.levels;
+    id=dadosdoQuizz.id;
+    window.scrollTo(0,0)
+
+    for(let i=0;i<dadosdoQuizz.questions.length;i++){
+        const questionsBox=document.querySelector(".questionsBox");
+        questionsBox.innerHTML+=
+        `<div class="perguntas" data-id="${listaQuizz[i].index}">
+        <div style="background-color: ${dadosdoQuizz.questions[i].color}" class="titleQuestions white">
+        ${dadosdoQuizz.questions[i].title}</div>
+        <div class="all"></div> 
+        </div>`
+
+        const TotalResponses=document.querySelectorAll(".all")
+        let shuffled=dadosdoQuizz.questions[i].answers
+        shuffled.sort(shuffling)
+
+        for(let k=0;k<shuffled.length;k++){
+            TotalResponses[i].innerHTML+=`<div class="alternative" id="${shuffled[k].isCorrectAnswer}" 
+             onclick="AnswerClicked(this)">
+            <div><img class="QuestionFigure" src="${shuffled[k].image}"/></div>
+            <p class="QuestionAltenative">${shuffled[k].text}</p> </div>
+            `
+        }
+}
+}
+    //Embaralha as perguntas/respostas
+        function shuffling(){
+        return Math.random()-0.5;
+        }
+    
+    // Check for correct answer:
+        function AnswerClicked(answer){
+            let valid = answer.id
+            if(valid == "true"){
+                answer.classList.add('correctBorder')
+                correctA += 1;
+            } else{
+                answer.classList.add('wrongBorder')
+            }
+        questionA ++
+        console.log(questionA)
+        showResult()
+        }
+
+    // Show Results
+        function showResult(){
+            if(questionA == 3){
+               console.log(correctA/3)
+            }
+        }
+///Aqui começa o createQuizz //// 
+
+function createQuizzPg1(){ //Primeira tela para criar quizz
+    
     document.querySelector(".page").innerHTML=`
     <h2>Comece pelo começo</h2>
     <div class="whiteBox">
@@ -202,7 +231,6 @@ function readQuizzPg2() {
         answer.image=document.getElementById(`a${i+1}6`).value;
         answer.isCorrectAnswer=false;
         question.answers[1]=answer;
-        //QUANTAS RESPOSTAS???????????????????!!!!!!!!!!!
         answer.text=document.getElementById(`a${i+1}7`).value;
         answer.image=document.getElementById(`a${i+1}8`).value;
         answer.isCorrectAnswer=false;
@@ -253,5 +281,6 @@ function postedQuizz(){
     alert("great sucess");
     homePage();
 }
-//Codigo executado ao iniciar
-homePage();
+
+
+
