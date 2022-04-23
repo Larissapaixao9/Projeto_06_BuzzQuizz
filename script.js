@@ -2,7 +2,7 @@ let listaQuizz = []; //variavel com array dos quizzes
 let title;
 let image;
 let questions; 
-let correctA, questionA, pcent = 0;
+let correctA=0, questionA=0, pcent = 0;
 let levels;
 let quizzId;
 let questionL = 0;
@@ -51,7 +51,7 @@ function getQuizzes(){ //faz get na lista de quizzes
     promise.then(printQuizzes);
 }
 
-function printQuizzes(quizzes){ //mostra a lista de quizzes no html
+function printQuizzes(quizzes){ //mostra a lista de quizzes no html homepage
     let oQuizzes = document.querySelector(".other-quizzes"); // oQuizzes => otherQuizzes
     listaQuizz = quizzes.data;
     console.log(quizzes.data);
@@ -64,32 +64,25 @@ function printQuizzes(quizzes){ //mostra a lista de quizzes no html
         </button>`
     }
 }
-function renderizar(titleQuestion,imageQuestion){
-    return `<div class=""gradient">
-            <img src="${imageQuestion}"/>
-            <span>${titleQuestion}</span>`
-}
 
-function showQuizz(index){
-    console.log("console"+index);
-    console.log(listaQuizz[index]);
-    const newHeader=document.querySelector(".header").classList.add("marginzero")
+function showQuizz(index){ //mostra o quizz selecionado
+    document.querySelector(".header").classList.add("marginzero"); //margin 0 no topo
     document.querySelector(".page").innerHTML = `
     <div class="gradient2"></div> 
     <img class="header2" src="${listaQuizz[index].image}" alt="thumb"/> 
     <h1 class="QuizzTitle white "> ${listaQuizz[index].title} </h1>`;
-
+    
     quizzId=axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${index}`);
-    quizzId.then(teladeperguntas);
+    quizzId.then(printQuestions);
 }
 //Tela 2 responsável por mostrar as perguntas
-function teladeperguntas(resultado){
-    questionL = resultado.length
-    const dadosdoQuizz=resultado.data;
+function printQuestions(quizz){
+    const dadosdoQuizz=quizz.data;
     level=dadosdoQuizz.levels;
     id=dadosdoQuizz.id;
-    window.scrollTo(0,0)
-
+    window.scrollTo(0,0);
+    questionL = dadosdoQuizz.questions.length; //numero de perguntas
+    
     for(let i=0;i<dadosdoQuizz.questions.length;i++){
         const questionsBox=document.querySelector(".questionsBox");
         questionsBox.innerHTML+=
@@ -110,33 +103,35 @@ function teladeperguntas(resultado){
             <p class="QuestionAltenative">${shuffled[k].text}</p> </div>
             `
         }
+    }
 }
-}
-    //Embaralha as perguntas/respostas
-        function shuffling(){
+//Embaralha as perguntas/respostas
+function shuffling(){
         return Math.random()-0.5;
-        }
+}
     
-    // Check for correct answer:
-        function AnswerClicked(answer){
-            let valid = answer.id
-            if(valid == "true"){
-                answer.classList.add('correctBorder')
-                correctA += 1;
-            } else{
-                answer.classList.add('wrongBorder')
-            }
-        questionA ++
-        console.log(questionA)
-        showResult()
+// Check for correct answer:
+function AnswerClicked(answer){
+    let valid = answer.id
+    if(valid == "true"){
+        answer.classList.add('correctBorder')
+            correctA += 1;
+        } else{
+            answer.classList.add('wrongBorder')
         }
+        questionA ++;
+        console.log(questionA);
+        showResult();
+}
 
-    // Show Results
-        function showResult(){
-            if(questionA == 3){
-               console.log(correctA/3)
-            }
-        }
+// pegar tamanho lista => quizz.questions[i].answers.length
+//quizz.questions.length
+// Show Results
+function showResult(){
+    if(questionA == 3){
+        console.log(correctA/3);
+    }
+}
 ///Aqui começa o createQuizz //// 
 
 function createQuizzPg1(){ //Primeira tela para criar quizz
