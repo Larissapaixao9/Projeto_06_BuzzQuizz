@@ -53,7 +53,7 @@ function printQuizzes(quizzes){
     console.log(quizzes.data.questions);
     for(i = 0; i < listaQuizz.length; i++){     // ADICIONAR OS QUIZZES DO SERVER
         oQuizzes.innerHTML += ` 
-        <button onclick="showQuizz(${i})" class="quizzBox"> 
+        <button id="${listaQuizz[i].id}" onclick="showQuizz(${i})" class="quizzBox"> 
         <img src="${listaQuizz[i].image}" alt="thumb"> 
         <div class="gradient"></div> 
         <h1 class="QuizzTitle white"> ${listaQuizz[i].title} </h1>
@@ -62,6 +62,7 @@ function printQuizzes(quizzes){
        
     }
   }
+
   function renderizar(titleQuestion,imageQuestion){
     return `<div class=""gradient">
             <img src="${imageQuestion}"/>
@@ -69,18 +70,19 @@ function printQuizzes(quizzes){
     `
   }
   
-  function showQuizz(index){
-    console.log("console"+index);
-    console.log(listaQuizz[index]);
+  function showQuizz(id){
+    console.log("console"+ id);
+    console.log(listaQuizz[id]);
     const newHeader=document.querySelector(".header").classList.add("marginzero")
     document.querySelector(".page").innerHTML = `
     <div class="gradient2"></div> 
-    <img class="header2" src="${listaQuizz[index].image}" alt="thumb"/> 
-    <h1 class="QuizzTitle white "> ${listaQuizz[index].title} </h1>
+    <img class="header2" src="${listaQuizz[id].image}" alt="thumb"/> 
+    <h1 class="QuizzTitle white "> ${listaQuizz[id].title} </h1>
    
     `;
-    quizzId=axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${index}`)
+    quizzId=axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`)
     quizzId.then(teladeperguntas)
+    quizzId.catch(console.log('deu ruim'))
   }
   
     function teladeperguntas(resultado){
@@ -88,6 +90,7 @@ function printQuizzes(quizzes){
         level=dadosdoQuizz.levels;
         id=dadosdoQuizz.id;
         window.scrollTo(0,0)
+        console.log(resultado.data)
   
         for(let i=0;i<dadosdoQuizz.questions.length;i++){
             const questionsBox=document.querySelector(".questionsBox");
@@ -96,7 +99,16 @@ function printQuizzes(quizzes){
             <div style="background-color: ${dadosdoQuizz.questions[i].color}" class="tituloP">
             ${dadosdoQuizz.questions[i].title}</div>
             <div class="all"></div>
-            `
+           `
+           for(let j=0;j<dadosdoQuizz.questions.answers.length;j++){
+            console.log(j)
+            const answersBox=document.querySelector(".answerBox");
+            questionsBox.innerHTML +=
+            `<div class="answers">
+            <div style="background-color: ${dadosdoQuizz.questions[i].answers[j]}" class="renderAns"></div>
+            <div class="all"></div>
+           `
+           }
         }
     }
 
@@ -217,13 +229,11 @@ function createQuizzPg3(){
             <input id="a${i+1}3" type="url" placeholder="URL da imagem do nível">
             <input id="a${i+1}4" type="text" placeholder="Descrição do nível">
         </div>
-    `;
+     `;
     }
     document.querySelector(".page").innerHTML+=`
     <button class="redBox" onclick="readQuizzPg3()">Finalizar Quizz</button>
     `;
-    
-    
 }
 function readQuizzPg3() {
     for(let i =0;i<levels;i++){
@@ -234,13 +244,14 @@ function readQuizzPg3() {
         createdQuizz.levels[i]=level;
     }
     console.log(createdQuizz);
+    Stringify()
     let promise=axios.post('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes',createdQuizz);
     promise.then(postedQuizz());
 }
+
 function postedQuizz(){
     alert("great sucess");
     homePage();
 }
 //Codigo executado ao iniciar
 homePage();
-
