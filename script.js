@@ -29,7 +29,6 @@ let level ={
 ////////////////  Codigo executado ao iniciar ////////////////
 homePage();
 
-
 function homePage(){// cria a homepage com meus quizzes e outros quizzes
     document.querySelector(".page").innerHTML=` 
     <div class="myQuizzes">
@@ -152,6 +151,14 @@ function isValidHttpUrl(string) { //verifica se a string é url
     }
     return true;
 }
+function isValidColor(string){
+    if(string[0]=="#"){
+        if(string.length==7){
+            return true;
+        }
+    }
+    return false;
+}
 function createQuizzPg2(){
     document.querySelector(".page").innerHTML=`
     <h2>Crie suas perguntas</h2>
@@ -159,9 +166,10 @@ function createQuizzPg2(){
     for(let i =0;i<questions;i++){
         document.querySelector(".page").innerHTML+=`
         <div class="whiteBox">
-            <h2>Pergunta ${i+1}</h2>
+            <h2>Pergunta ${i+1} </h2>
+            <ion-icon name="create-outline"></ion-icon>
             <input id="a${i+1}1" type="text" placeholder="Texto da pergunta">
-            <input id="a${i+1}2" type="text" placeholder="Cor de fundo da pergunta">
+            <input id="a${i+1}2" type="color" placeholder="Cor de fundo da pergunta">
             <h2>Resposta correta</h2>
             <input id="a${i+1}3" type="text" placeholder="Resposta correta">
             <input id="a${i+1}4" type="url" placeholder="URL de imagem">
@@ -181,27 +189,71 @@ function createQuizzPg2(){
     
 }
 function readQuizzPg2() {
+
     for(let i =0;i<questions;i++){
         question.title=document.getElementById(`a${i+1}1`).value;
         question.color=document.getElementById(`a${i+1}2`).value;
         
         answer.text=document.getElementById(`a${i+1}3`).value;
+        if(answer.text==null){
+            alert('Insira um texto para a resposta');
+            return;
+        }
         answer.image=document.getElementById(`a${i+1}4`).value;
+        if(!isValidHttpUrl(answer.image)){
+            alert('Insira uma url de imagem válida');
+            return;
+        }
         answer.isCorrectAnswer=true;
         question.answers[0]=answer;
+
         answer.text=document.getElementById(`a${i+1}5`).value;
+        if(answer.text==null){
+            alert('Insira um texto para a resposta');
+            return;
+        }
         answer.image=document.getElementById(`a${i+1}6`).value;
+        if(!isValidHttpUrl(answer.image)){
+            alert('Insira uma url de imagem válida');
+            return;
+        }
         answer.isCorrectAnswer=false;
         question.answers[1]=answer;
+
         answer.text=document.getElementById(`a${i+1}7`).value;
         answer.image=document.getElementById(`a${i+1}8`).value;
         answer.isCorrectAnswer=false;
-        question.answers[2]=answer;
+        if(answer.text!=null){
+            if(!isValidHttpUrl(answer.image)){
+                alert('Insira uma url de imagem válida');
+                return;
+            }
+            question.answers[2]=answer;
+        }else{
+            return;
+        }
+        
         answer.text=document.getElementById(`a${i+1}9`).value;
         answer.image=document.getElementById(`a${i+1}10`).value;
         answer.isCorrectAnswer=false;
-        question.answers[3]=answer;
+        if(answer.text!=null){
+            if(!isValidHttpUrl(answer.image)){
+                alert('Insira uma url de imagem válida');
+                return;
+            }
+            question.answers[3]=answer;
+        }else{
+            return;
+        }
 
+        if(question.title.length<20){
+            alert(`Escolha um título com entre 20 e 65 caractéres, o seu está com ${title.length}`);
+            return;
+        }
+        if(!isValidColor(question.color)){
+            alert('Insira uma cor válida');
+            return;
+        }
         createdQuizz.questions[i]=question;
     }
     createQuizzPg3();
@@ -224,8 +276,6 @@ function createQuizzPg3(){
     document.querySelector(".page").innerHTML+=`
     <button class="redBox" onclick="readQuizzPg3()">Finalizar Quizz</button>
     `;
-    
-    
 }
 function readQuizzPg3() {
     for(let i =0;i<levels;i++){
