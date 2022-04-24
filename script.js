@@ -202,7 +202,7 @@ function createQuizzPg2(){
             <h2>Pergunta ${i+1} </h2>
             <ion-icon name="create-outline"></ion-icon>
             <input id="a${i+1}1" type="text" placeholder="Texto da pergunta">
-            <input id="a${i+1}2" type="color" placeholder="Cor de fundo da pergunta">
+            <input id="a${i+1}2" type="text" placeholder="Cor de fundo da pergunta">
             <h2>Resposta correta</h2>
             <input id="a${i+1}3" type="text" placeholder="Resposta correta">
             <input id="a${i+1}4" type="url" placeholder="URL de imagem">
