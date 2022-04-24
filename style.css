@@ -127,6 +127,7 @@ button{
     margin-top: 20px;
     background: #EC362D;
     border-radius: 15px;
+    cursor: pointer;
 }
 .textQuizzTitle{
     margin: 14px;
@@ -140,6 +141,7 @@ button{
     flex-wrap: wrap;
     column-gap: 6px;
     row-gap: 6px;
+    width:1150px;
 }
 .gradient {
     width: 340px;
@@ -149,6 +151,11 @@ button{
     margin-bottom: 12px; */
     background: linear-gradient(0deg, #000000,transparent);
     position: absolute;
+}
+.flexStart{
+    display:flex;
+    justify-content: initial;
+    align-items: initial;
 }
 .quizzBox{
     border-radius: 6px;

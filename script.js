@@ -32,15 +32,16 @@ let level ={
 ////////////////  Codigo executado ao iniciar ////////////////
 homePage();
 
+///////////////////////////////TODOS OS QUIZZES ESTA CENTRALIZADO, TEM QUE MUDAR BOA SORTE, ja tentei ~~klaus////////////////
 function homePage(){// cria a homepage com meus quizzes e outros quizzes
     document.querySelector(".page").innerHTML=` 
     <div class="myQuizzes">
         <h4 >Você não criou nenhum <br> quizz ainda :(</h4>
         <p class="criarQuizzText red" onclick="createQuizzPg1()">Criar Quizz</p>
     </div>
-    <div class="textQuizzTitle">
-        <p class="all-quizzesText"> Todos os quizzes</p>
-        </div>
+    <div class="flexStart">
+        <h2> Todos os quizzes</h2>
+    </div>
     <div class="other-quizzes"></div>
     </div>`;
     getQuizzes();
@@ -52,11 +53,11 @@ function getQuizzes(){ //faz get na lista de quizzes
 }
 
 function printQuizzes(quizzes){ //mostra a lista de quizzes no html homepage
-    let oQuizzes = document.querySelector(".other-quizzes"); // oQuizzes => otherQuizzes
+    let otherQuizzes = document.querySelector(".other-quizzes"); // oQuizzes => otherQuizzes
     listaQuizz = quizzes.data;
     console.log(quizzes.data);
     for(i = 0; i < listaQuizz.length; i++){     // ADICIONAR OS QUIZZES DO SERVER
-        oQuizzes.innerHTML += ` 
+        otherQuizzes.innerHTML += ` 
         <button id="${listaQuizz[i].id}" onclick="showQuizz(${i})" class="quizzBox"> 
         <img src="${listaQuizz[i].image}" alt="thumb"> 
         <div class="gradient"></div> 
@@ -77,37 +78,38 @@ function showQuizz(index){ //mostra o quizz selecionado
 }
 //Tela 2 responsável por mostrar as perguntas
 function printQuestions(quizz){
-    const dadosdoQuizz=quizz.data;
-    level=dadosdoQuizz.levels;
-    id=dadosdoQuizz.id;
+    const dadosQuizz=quizz.data;
+    level=dadosQuizz.levels;
+    id=dadosQuizz.id;
     window.scrollTo(0,0);
-    questionL = dadosdoQuizz.questions.length; //numero de perguntas
+    questionL = dadosQuizz.questions.length; //numero de perguntas
     
-    for(let i=0;i<dadosdoQuizz.questions.length;i++){
+    for(let i=0;i<dadosQuizz.questions.length;i++){
         const questionsBox=document.querySelector(".questionsBox");
         questionsBox.innerHTML+=
         `<div class="perguntas" data-id="${listaQuizz[i].index}">
-        <div style="background-color: ${dadosdoQuizz.questions[i].color}" class="titleQuestions white">
-        ${dadosdoQuizz.questions[i].title}</div>
+        <div style="background-color: ${dadosQuizz.questions[i].color}" class="titleQuestions white">
+        ${dadosQuizz.questions[i].title}</div>
         <div class="all"></div> 
         </div>`
 
-        const TotalResponses=document.querySelectorAll(".all")
-        let shuffled=dadosdoQuizz.questions[i].answers
-        shuffled.sort(shuffling)
+        
+        let shuffled=dadosQuizz.questions[i].answers;
+        shuffled=shuffled.sort(shuffling);
 
         for(let k=0;k<shuffled.length;k++){
-            TotalResponses[i].innerHTML+=`<div class="alternative" id="${shuffled[k].isCorrectAnswer}" 
-             onclick="AnswerClicked(this)">
-            <div><img class="QuestionFigure" src="${shuffled[k].image}"/></div>
-            <p class="QuestionAltenative">${shuffled[k].text}</p> </div>
+            document.querySelector(".all").innerHTML+=`
+            <div class="alternative" id="${shuffled[k].isCorrectAnswer}" onclick="AnswerClicked(this)">
+                <div><img class="QuestionFigure" src="${shuffled[k].image}"/></div>
+                <p class="QuestionAltenative">${shuffled[k].text}</p>
+            </div>
             `
         }
     }
 }
 //Embaralha as perguntas/respostas
 function shuffling(){
-        return Math.random()-0.5;
+    return Math.random()-0.5;
 }
     
 // Check for correct answer:
@@ -201,7 +203,7 @@ function createQuizzPg2(){
         <div class="whiteBox">
             <h2>Pergunta ${i+1} </h2>
             <ion-icon name="create-outline"></ion-icon>
-            <input id="a${i+1}1" type="text" placeholder="Texto da pergunta">
+            <input id="a${i+1}1" type="text" placeholder="Texto da pergunta" minlength="20">
             <input id="a${i+1}2" type="text" placeholder="Cor de fundo da pergunta">
             <h2>Resposta correta</h2>
             <input id="a${i+1}3" type="text" placeholder="Resposta correta">
@@ -228,7 +230,7 @@ function readQuizzPg2() {
         question.color=document.getElementById(`a${i+1}2`).value;
         
         answer.text=document.getElementById(`a${i+1}3`).value;
-        if(answer.text==null){
+        if(answer.text==""){
             alert('Insira um texto para a resposta');
             return;
         }
@@ -241,7 +243,7 @@ function readQuizzPg2() {
         question.answers[0]=answer;
 
         answer.text=document.getElementById(`a${i+1}5`).value;
-        if(answer.text==null){
+        if(answer.text==""){
             alert('Insira um texto para a resposta');
             return;
         }
@@ -256,31 +258,28 @@ function readQuizzPg2() {
         answer.text=document.getElementById(`a${i+1}7`).value;
         answer.image=document.getElementById(`a${i+1}8`).value;
         answer.isCorrectAnswer=false;
-        if(answer.text!=null){
+        if(answer.text!=""){
             if(!isValidHttpUrl(answer.image)){
                 alert('Insira uma url de imagem válida');
                 return;
-            }
-            question.answers[2]=answer;
-        }else{
-            return;
+            } 
         }
-        
+        question.answers[2]=answer;
+
         answer.text=document.getElementById(`a${i+1}9`).value;
         answer.image=document.getElementById(`a${i+1}10`).value;
         answer.isCorrectAnswer=false;
-        if(answer.text!=null){
+        if(answer.text!=""){
             if(!isValidHttpUrl(answer.image)){
                 alert('Insira uma url de imagem válida');
                 return;
             }
-            question.answers[3]=answer;
-        }else{
-            return;
+            
         }
+        question.answers[3]=answer;
 
         if(question.title.length<20){
-            alert(`Escolha um título com entre 20 e 65 caractéres, o seu está com ${title.length}`);
+            alert(`Escolha um título com no mínimo 20 caractéres`);
             return;
         }
         if(!isValidColor(question.color)){
@@ -299,10 +298,10 @@ function createQuizzPg3(){
         document.querySelector(".page").innerHTML+=`
         <div class="whiteBox">
             <h2>Nível ${i+1}</h2>
-            <input id="a${i+1}1" type="text" placeholder="Título do nível">
+            <input id="a${i+1}1" type="text" placeholder="Título do nível" minlength="10">
             <input id="a${i+1}2" type="number" placeholder="% de acerto mínima">
             <input id="a${i+1}3" type="url" placeholder="URL da imagem do nível">
-            <input id="a${i+1}4" type="text" placeholder="Descrição do nível">
+            <input id="a${i+1}4" type="text" placeholder="Descrição do nível" minlength="30">
         </div>
      `;
     }
@@ -311,15 +310,43 @@ function createQuizzPg3(){
     `;
 }
 function readQuizzPg3() {
+    let hasZero=false;
     for(let i =0;i<levels;i++){
         level.title=document.getElementById(`a${i+1}1`).value;
+        if(level.title.length<10 ){
+            alert(`Escolha um título com no mínimo 10 caractéres`);
+            return;
+        }
         level.minValue=document.getElementById(`a${i+1}2`).value;
+        if(level.minValue=="0"){
+            hasZero=true;
+        }
+        if(!(level.minValue>=0 || level.minValue<=100)){
+            alert('Insira um valor de 0 a 100 para o nível');
+            return;
+        }
         level.image=document.getElementById(`a${i+1}3`).value;
+        if(!isValidHttpUrl(level.image)){
+            alert('Insira uma url de imagem válida');
+            return;
+        }
         level.text=document.getElementById(`a${i+1}4`).value;
+        if(level.text.length<30 ){
+            alert(`Escolha uma descrição com no mínimo 30 caractéres`);
+            return;
+        }
+
         createdQuizz.levels[i]=level;
     }
-    console.log(createdQuizz);
-    Stringify()
+    if(hasZero==false){
+        alert("Pelo menos um dos níveis deve ter o valor 0");
+        createQuizzPg3();
+    }
+
+    /////stringify para salvar na memoria
+    //Stringify();
+
+    /////////// posta quizz
     let promise=axios.post('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes',createdQuizz);
     promise.then(postedQuizz());
 }
