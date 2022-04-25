@@ -277,7 +277,9 @@ function isValidColor(string){
 }
 function createQuizzPg2(){
     document.querySelector(".page").innerHTML=`
-    <h2>Crie suas perguntas</h2>
+    <div class="center">
+        <h2>Crie suas perguntas</h2>
+    </div>
     `;
     for(let i =0;i<questions;i++){
         if(i==0){
@@ -310,7 +312,9 @@ function createQuizzPg2(){
         }
     }
     document.querySelector(".page").innerHTML+=`
-    <button class="redBox" onclick="readQuizzPg2()">Prosseguir pra criar níveis</button>
+    <div class="center">
+        <button class="redBox" onclick="readQuizzPg2()">Prosseguir pra criar níveis</button>
+    </div>
     `;
 }
 function showQuestion(i,element){
