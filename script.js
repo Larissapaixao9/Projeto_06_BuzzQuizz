@@ -101,7 +101,7 @@ function printQuestions(quizz){
             document.querySelector(".all").innerHTML+=`
             <div class="alternative" id="${shuffled[k].isCorrectAnswer}" onclick="AnswerClicked(this)">
                 <div><img class="QuestionFigure" src="${shuffled[k].image}"/></div>
-                <p class="QuestionAltenative">${shuffled[k].text}</p>
+                <p class="QuestionAlternative">${shuffled[k].text}</p>
             </div>
             `
         }
@@ -348,12 +348,22 @@ function readQuizzPg3() {
 
     /////////// posta quizz
     let promise=axios.post('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes',createdQuizz);
-    promise.then(postedQuizz());
+    promise.then(postedQuizz);
 }
 
-function postedQuizz(){
-    alert("great sucess");
-    homePage();
+function postedQuizz(quizz){
+    document.querySelector(".page").innerHTML=`
+    <h2>Seu quizz está pronto</h2>
+    <button id="${quizz.data.id}"  class="quizzBox"> 
+        <img src="${quizz.data.image}" alt="thumb"> 
+        <div class="gradient"></div> 
+        <h1 class="QuizzTitle white"> ${quizz.data.title} </h1>
+    </button>
+    <button class="redBox" onclick="showQuizz(${quizz.data.id})">Acessar Quizz</button>
+    <h4 onclick="homePage()">Voltar pra home</h4>
+    `;
+    
+    //;
 }
 
 
