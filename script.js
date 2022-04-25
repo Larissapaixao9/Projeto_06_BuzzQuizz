@@ -105,7 +105,7 @@ function printQuestions(quizz){
         for(let k=0;k<shuffled.length;k++){
             TotalResponses[i].innerHTML+=`
             <div class="alternative" id="${shuffled[k].isCorrectAnswer}" onclick="AnswerClicked(this)">
-                <div><img class="QuestionFigure" src="${shuffled[k].image}"/></div>
+                <img class="QuestionFigure" src="${shuffled[k].image}"/>
                 <p class="QuestionAltenative">${shuffled[k].text}</p> 
             </div>
             `
@@ -133,10 +133,10 @@ function AnswerClicked(answer){
     console.log(answer.image);
 
     if(valid == "true"){
-        answer.classList.add('correctBorder')
+        answer.classList.add('green')
             correctA += 1;
         } else{
-            answer.classList.add('wrongBorder')
+            answer.classList.add('red')
         }
         questionA ++;
         console.log(questionA);
@@ -175,10 +175,9 @@ function showAllresults(porcent){
      BoxQuestions.innerHTML+=`<div class="QuizzFinalResult bold perguntas">
         <div class="headerResultTest white">Você acertou ${porcent}% das questões do quiz , Serumaninho :))</div>
      
-        <div>
+        <div class="resultdesc">
             <img src="${listaQuizz[id].image}"/>
-            <div> Nome do Quiz: <strong>${listaQuizz[id].title}</strong> </div>
-            <div> Nome do Quiz: <strong>${listaQuizz[id].text}</strong> </div>
+            <div class="finalResultText"> Nome do Quiz: <strong>${listaQuizz[id].levels.text}</strong> </div>
         </div>
 
         <div>
@@ -449,7 +448,7 @@ function refreshQuizzList(postedquizz){ ////show quizz n funcionando
     );
 }
 
-function postedQuizz(quizz){
+function postedQuizz(quizz){ // TENTAR CONSERTAR CONFLITO COM O 'SHOWQUIZZ'. PROVAVELMENTE SEJA PQ QUIZZ.DATA.ID ENTRA EM CONFLITO COM O INDEX QUE RECEBE O PARAMETRO CITADO ANTERIORMENTE E ADICIONA .TITLE, DAI FICA QUIZZ.DATA.ID.TITLE, E CONFLITA PQ ELES NÃO TEM RELAÇÃO DE DEPENDENCIA.
     document.querySelector(".page").innerHTML=`
     <h2>Seu quizz está pronto</h2>
     <button id="${quizz.data.id}"  class="quizzBox"> 
@@ -462,13 +461,13 @@ function postedQuizz(quizz){
     `;
 }
 
-function getquizzId(quizz){
-    let quizzName = quizz.data[i].title;
-    for(i=0; i<quizz.data; i++){
-        if(quizzName == createdQuizz.title){
-            console.log(quizz.data.id);
-        }
-    }
-}
+// function getquizzId(quizz){
+//     let quizzName = quizz.data[i].title;
+//     for(i=0; i<quizz.data; i++){
+//         if(quizzName == createdQuizz.title){
+//             console.log(quizz.data[i].id);
+//         }
+//     }
+// }
 
 
