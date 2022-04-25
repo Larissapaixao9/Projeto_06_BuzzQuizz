@@ -38,10 +38,6 @@ let level ={
 ////////////////  Codigo executado ao iniciar ////////////////
 homePage();
 
-<<<<<<< HEAD
-=======
-///////////////////////////////TODOS OS QUIZZES ESTA CENTRALIZADO, TEM QUE MUDAR BOA SORTE, ja tentei ~~klaus//////////////// TODOS OS QUIZZES JA ESTA NORMALIZADO!!
->>>>>>> abe6f7ad6c09b5d2c8d5316582ff42c3b6ce4765
 function homePage(){// cria a homepage com meus quizzes e outros quizzes
     document.querySelector(".page").innerHTML=` 
     <div class="myQuizzes">
