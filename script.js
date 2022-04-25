@@ -76,7 +76,8 @@ function showQuizz(index){ //mostra o quizz selecionado
     document.querySelector(".page").innerHTML = `
     <div class="gradient2"></div> 
     <img class="header2" src="${listaQuizz[index].image}" alt="thumb"/> 
-    <h1 class="QuizzTitle white "> ${listaQuizz[index].title} </h1>`;
+    <h1 class="QuizzTitle white "> ${listaQuizz[index].title} </h1>
+    `;
     
     quizzId=axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${index}`);
     quizzId.then(printQuestions);
@@ -435,8 +436,8 @@ function readQuizzPg3() {
 
     /////////// posta quizz
     let promise=axios.post('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes',createdQuizz);
-    let getId = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes') // add ~lucas
-    getId.then(getquizzId); // add ~lucas
+    //let getId = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes') // add ~lucas
+    //getId.then(getquizzId); // add ~lucas
     promise.then(refreshQuizzList);
 }
 
@@ -447,6 +448,11 @@ function refreshQuizzList(postedquizz){ ////show quizz n funcionando
         postedQuizz(postedquizz);
     }
     );
+    for(i = 0; i < listaQuizz.length; i++){ 
+        if(postedquizz.data.id==listaQuizz[i].id){
+            showQuizz(i);    
+        }
+    }
 }
 
 function postedQuizz(quizz){
