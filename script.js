@@ -1,4 +1,5 @@
 let listaQuizz = []; //variavel com array dos quizzes
+let myQuizz;
 let title;
 let image;
 let questions; 
@@ -487,6 +488,11 @@ function readQuizzPg3() {
 
 function getidServer(response){
     console.log(response);
+    let myquizzid = response.data.id;
+    console.log(myquizzid)
+    myQuizz+=myquizzid;
+    console.log(myQuizz)
+    
 }
 
 function refreshQuizzList(postedquizz){ ////show quizz n funcionando 
@@ -515,14 +521,5 @@ function postedQuizz(quizz){ // TENTAR CONSERTAR CONFLITO COM O 'SHOWQUIZZ'. PRO
     <h4 onclick="homePage()">Voltar pra home</h4>
     `;
 }
-
-// function getquizzId(quizz){
-//     let quizzName = quizz.data[i].title;
-//     for(i=0; i<quizz.data; i++){
-//         if(quizzName == createdQuizz.title){
-//             console.log(quizz.data[i].id);
-//         }
-//     }
-// }
 
 
