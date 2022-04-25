@@ -3,9 +3,10 @@ let title;
 let image;
 let questions; 
 let correctA=0, questionA=0, pcent = 0;
-let levels;
+let levels=[];
 let quizzId;
-let questionL = 0;
+let questionL = 0; 
+let Nivelcorreto=0; ///resultado final ao usuário
 let createdQuizz ={
 	title: "Título do quizz",
 	image: "https://http.cat/411.jpg",
@@ -22,6 +23,11 @@ let answer={
     image: "https://http.cat/411.jpg",
     isCorrectAnswer: true
 };
+let emptyAnswer={
+    text: "",
+    image: "",
+    isCorrectAnswer: false
+};
 let level ={
     title: "Título do nível 1",
     image: "https://http.cat/411.jpg",
@@ -32,7 +38,6 @@ let level ={
 ////////////////  Codigo executado ao iniciar ////////////////
 homePage();
 
-///////////////////////////////TODOS OS QUIZZES ESTA CENTRALIZADO, TEM QUE MUDAR BOA SORTE, ja tentei ~~klaus////////////////
 function homePage(){// cria a homepage com meus quizzes e outros quizzes
     document.querySelector(".page").innerHTML=` 
     <div class="myQuizzes">
@@ -120,13 +125,12 @@ function shuffling(){
 }
     
 // Check for correct answer:
-// Check for correct answer:
 function AnswerClicked(answer){
-    let valid = answer.id
-    const QuestiosImages=[]
-    let father=answer.parentNode
+    let valid = answer.id;
+    const QuestiosImages=[];
+    let father=answer.parentNode;
     const all=father.children;
-    console.log(answer.image)
+    console.log(answer.image);
 
     if(valid == "true"){
         answer.classList.add('correctBorder')
@@ -156,13 +160,11 @@ function AnswerClicked(answer){
     }
 }
 //Faz o scroll
- function goDown(element){
+function goDown(element){
     element.parentNode.nextElementSibling.scrollIntoView()
- }
+}
 
- //mostra o resultado final ao usuário
- let Nivelcorreto=0;
- function showAllresults(porcent){
+function showAllresults(porcent){
      let BoxQuestions=document.querySelector(".questionsBox");
     const imagemFInal=document.querySelector(".header2");
      for(let i=0;i<levels.length;i++){
@@ -191,16 +193,17 @@ function AnswerClicked(answer){
         levels=[]
         Nivelcorreto=0;
        
- }
+}
  //recarrega a pagina 2 quando clicado no botão
- function reloadPage2(){
+function reloadPage2(){
      let questionBox=document.querySelector(".questionsBox");
      questionBox.innerHTML="";
- }
- //volta para home
- function Home(){
-     window.location.reload();
- }
+}
+
+//volta para home
+function Home(){
+    window.location.reload();
+}
 
 // pegar tamanho lista => quizz.questions[i].answers.length
 //quizz.questions.length
@@ -341,7 +344,11 @@ function readQuizzPg2() {
                 return;
             } 
         }
-        question.answers[2]=answer;
+        if(answer.text==""){
+            question.answers[2]=emptyAnswer;
+        }else{
+            question.answers[2]=answer;
+        }
 
         answer.text=document.getElementById(`a${i+1}9`).value;
         answer.image=document.getElementById(`a${i+1}10`).value;
@@ -350,10 +357,13 @@ function readQuizzPg2() {
             if(!isValidHttpUrl(answer.image)){
                 alert('Insira uma url de imagem válida');
                 return;
-            }
-            
+            } 
         }
-        question.answers[3]=answer;
+        if(answer.text==""){
+            question.answers[3]=emptyAnswer;
+        }else{
+            question.answers[3]=answer;
+        }
 
         if(question.title.length<20){
             alert(`Escolha um título com no mínimo 20 caractéres`);
@@ -428,7 +438,12 @@ function readQuizzPg3() {
     promise.then(postedQuizz);
 }
 
-function postedQuizz(quizz){
+function postedQuizz(quizz){ ////show quizz n funcionando 
+    let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes');
+    promise.then(function a(quizzes){
+        listaQuizz = quizzes.data;
+    }
+    );
     document.querySelector(".page").innerHTML=`
     <h2>Seu quizz está pronto</h2>
     <button id="${quizz.data.id}"  class="quizzBox"> 
