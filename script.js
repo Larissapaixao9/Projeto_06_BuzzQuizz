@@ -38,6 +38,10 @@ let level ={
 ////////////////  Codigo executado ao iniciar ////////////////
 homePage();
 
+<<<<<<< HEAD
+=======
+///////////////////////////////TODOS OS QUIZZES ESTA CENTRALIZADO, TEM QUE MUDAR BOA SORTE, ja tentei ~~klaus//////////////// TODOS OS QUIZZES JA ESTA NORMALIZADO!!
+>>>>>>> abe6f7ad6c09b5d2c8d5316582ff42c3b6ce4765
 function homePage(){// cria a homepage com meus quizzes e outros quizzes
     document.querySelector(".page").innerHTML=` 
     <div class="myQuizzes">
@@ -217,9 +221,9 @@ function showResult(){
 ///Aqui começa o createQuizz //// 
 
 function createQuizzPg1(){ //Primeira tela para criar quizz
-    
+    // ADICIONEI CLASS PRA H2, PRA PODER DAR MARGIN AUTO NELA E NA WHITEBOX, PRA PODER CENTRALIZAR AS DUAS NA PAGE. ISSO PQ TIREI O MARGIN DA CLASS 'PAGE' NO CSS, SÓ ASSIM CONSEGUI RESOLVER O 'TODOS OS QUIZZES' QUE ESTAVA CENTRALIZADO. AGORA O H2 CLASS 'PAGETITLE' E O WHITEBOX TEM MARGIN AUTO.
     document.querySelector(".page").innerHTML=`
-    <h2>Comece pelo começo</h2>
+    <h2 class="pageTitle">Comece pelo começo</h2> 
     <div class="whiteBox">
         <input id="a1" placeholder="Título do seu quizz" type="text" minlength="20" maxlength="65" required>
         <input id="a2" placeholder="URL da imagem do seu quizz" type="url" required>
@@ -435,15 +439,21 @@ function readQuizzPg3() {
 
     /////////// posta quizz
     let promise=axios.post('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes',createdQuizz);
-    promise.then(postedQuizz);
+    let getId = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes') // add ~lucas
+    getId.then(getquizzId); // add ~lucas
+    promise.then(refreshQuizzList);
 }
 
-function postedQuizz(quizz){ ////show quizz n funcionando 
+function refreshQuizzList(postedquizz){ ////show quizz n funcionando 
     let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes');
     promise.then(function a(quizzes){
         listaQuizz = quizzes.data;
+        postedQuizz(postedquizz);
     }
     );
+}
+
+function postedQuizz(quizz){
     document.querySelector(".page").innerHTML=`
     <h2>Seu quizz está pronto</h2>
     <button id="${quizz.data.id}"  class="quizzBox"> 
@@ -454,9 +464,15 @@ function postedQuizz(quizz){ ////show quizz n funcionando
     <button class="redBox" onclick="showQuizz(${quizz.data.id})">Acessar Quizz</button>
     <h4 onclick="homePage()">Voltar pra home</h4>
     `;
-    
-    //;
 }
 
+function getquizzId(quizz){
+    let quizzName = quizz.data[i].title;
+    for(i=0; i<quizz.data; i++){
+        if(quizzName == createdQuizz.title){
+            console.log(quizz.data.id);
+        }
+    }
+}
 
 

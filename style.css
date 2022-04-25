@@ -80,9 +80,9 @@ button{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: center;
 }
 .myQuizzes{
+    margin: 0 auto;
     background-color: #FAFAFA;
     border: 1px dashed #D4D4D4;
     display: flex;
@@ -108,8 +108,11 @@ button{
     margin-top: 34px;
     cursor: pointer;
 }
+.pageTitle{
+    margin: 10px auto;
+}
 .whiteBox{
-    margin:15px;
+    margin:0 auto;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -136,6 +139,7 @@ button{
     font-size: 20px;
 }
 .other-quizzes{
+    margin: 0 auto;
     justify-content: center;
     display: flex;
     flex-wrap: wrap;
@@ -152,10 +156,11 @@ button{
     background: linear-gradient(0deg, #000000,transparent);
     position: absolute;
 }
-.flexStart{
+.flexStart {
     display:flex;
-    justify-content: initial;
-    align-items: initial;
+    align-items: flex-start;
+    width: 1050px;
+    margin: 10px auto;
 }
 .quizzBox{
     border-radius: 6px;
