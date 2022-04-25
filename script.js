@@ -32,7 +32,7 @@ let level ={
 ////////////////  Codigo executado ao iniciar ////////////////
 homePage();
 
-///////////////////////////////TODOS OS QUIZZES ESTA CENTRALIZADO, TEM QUE MUDAR BOA SORTE, ja tentei ~~klaus////////////////
+///////////////////////////////TODOS OS QUIZZES ESTA CENTRALIZADO, TEM QUE MUDAR BOA SORTE, ja tentei ~~klaus//////////////// TODOS OS QUIZZES JA ESTA NORMALIZADO!!
 function homePage(){// cria a homepage com meus quizzes e outros quizzes
     document.querySelector(".page").innerHTML=` 
     <div class="myQuizzes">
@@ -214,9 +214,9 @@ function showResult(){
 ///Aqui começa o createQuizz //// 
 
 function createQuizzPg1(){ //Primeira tela para criar quizz
-    
+    // ADICIONEI CLASS PRA H2, PRA PODER DAR MARGIN AUTO NELA E NA WHITEBOX, PRA PODER CENTRALIZAR AS DUAS NA PAGE. ISSO PQ TIREI O MARGIN DA CLASS 'PAGE' NO CSS, SÓ ASSIM CONSEGUI RESOLVER O 'TODOS OS QUIZZES' QUE ESTAVA CENTRALIZADO. AGORA O H2 CLASS 'PAGETITLE' E O WHITEBOX TEM MARGIN AUTO.
     document.querySelector(".page").innerHTML=`
-    <h2>Comece pelo começo</h2>
+    <h2 class="pageTitle">Comece pelo começo</h2> 
     <div class="whiteBox">
         <input id="a1" placeholder="Título do seu quizz" type="text" minlength="20" maxlength="65" required>
         <input id="a2" placeholder="URL da imagem do seu quizz" type="url" required>
@@ -425,7 +425,20 @@ function readQuizzPg3() {
 
     /////////// posta quizz
     let promise=axios.post('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes',createdQuizz);
+    let getId = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes') // add ~lucas
+    getId.then(getquizzId) // add ~lucas
     promise.then(postedQuizz);
+}
+
+function getquizzId(quizz){
+    let quizzName = quizz.data[i].title
+    for(i=0; i<quizz.data; i++){
+        if(quizzName == createdQuizz.title){
+            console.log(quizz.data.id)
+        }
+    }
+    
+ 
 }
 
 function postedQuizz(quizz){
