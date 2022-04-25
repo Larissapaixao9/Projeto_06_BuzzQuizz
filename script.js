@@ -176,15 +176,18 @@ function showAllresults(porcent){
      BoxQuestions.innerHTML+=`<div class="QuizzFinalResult bold perguntas">
         <div class="headerResultTest white">Você acertou ${porcent}% das questões do quiz , Serumaninho :))</div>
      
-        <div>
-            <img src="${listaQuizz[id].image}"/>
-            <div> Nome do Quiz: <strong>${listaQuizz[id].title}</strong> </div>
-            <div> Nome do Quiz: <strong>${listaQuizz[id].text}</strong> </div>
+        <div class="ResultImageText">
+            <div>
+                <img src="${listaQuizz[id].image}"/></div>
+            <div>
+                <div> Nome do Quiz: <strong>${listaQuizz[id].title}</strong> </div>
+                <div> Descrição do Quiz: <strong>${listaQuizz[id].text}</strong> </div>
+            </div>
         </div>
 
-        <div>
-        <button class="reiniciar" onclick="reloadPage2()">Jogar de novo</button>
-        <button class="GoHomePage" onclick="Home()">Ir para Home</button>
+        <div class="buttons">
+            <button class="reiniciar white" onclick="reloadPage2()">Jogar de novo</button>
+            <button class="GoHomePage" onclick="Home()">Ir para Home</button>
         </div>
 
         </div>`
@@ -197,8 +200,11 @@ function showAllresults(porcent){
 }
  //recarrega a pagina 2 quando clicado no botão
 function reloadPage2(){
-     let questionBox=document.querySelector(".questionsBox");
-     questionBox.innerHTML="";
+    let questionBox=document.querySelector(".questionsBox");
+    questionBox.innerHTML="";
+    quizzId=axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`);
+   quizzId.then(printQuestions);
+    
 }
 
 //volta para home

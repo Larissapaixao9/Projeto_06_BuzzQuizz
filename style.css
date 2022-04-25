@@ -325,6 +325,30 @@ ion-icon{
 .pointerEventsNone{
     pointer-events: none;
 }
+.reiniciar{
+    background-color: #EC362D;
+    width: 260px;
+    height: 50px;
+    padding: 10px;
+    border: 1px solid #EC362D;
+    border-radius: 15px;
+}
+.reiniciar:active{
+    transition: transform .3s;
+    transform: scale(0.95);
+}
+.buttons{
+    display: flex;
+    flex-direction: column;
+    margin: 10px auto;
+}
+.ResultImageText{
+    display: flex;
+}
+.GoHomePage{
+    font-weight: 400;
+    color: #818181;
+}
 
 @media(max-width:1100px){
     .pcaixa{
