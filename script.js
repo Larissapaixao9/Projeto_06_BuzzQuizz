@@ -2,6 +2,7 @@ let listaQuizz = []; //variavel com array dos quizzes
 let title;
 let image;
 let questions; 
+let id = 0; 
 let correctA=0, questionA=0, pcent = 0;
 let levels=[];
 let quizzId;
@@ -72,6 +73,8 @@ function printQuizzes(quizzes){ //mostra a lista de quizzes no html homepage
 }
 
 function showQuizz(index){ //mostra o quizz selecionado
+    console.log(index)
+    console.log(listaQuizz[index].image)
     document.querySelector(".header").classList.add("marginzero"); //margin 0 no topo
     document.querySelector(".page").innerHTML = `
     <div class="gradient2"></div> 
@@ -101,6 +104,7 @@ function printQuestions(quizz){
 
         const TotalResponses=document.querySelectorAll(".all");
         let shuffled=dadosdoQuizz.questions[i].answers;
+        console.log(shuffled)
         shuffled.sort(shuffling);
 
         for(let k=0;k<shuffled.length;k++){
@@ -141,7 +145,6 @@ function AnswerClicked(answer){
         }
         questionA ++;
         console.log(questionA);
-        showResult();
 
 
     for(let i=0;i<all.length;i++){
@@ -167,7 +170,7 @@ function goDown(element){
 
 function showAllresults(porcent){
      let BoxQuestions=document.querySelector(".questionsBox");
-    const imagemFInal=document.querySelector(".header2");
+    const imagemFInal=document.querySelector(".header2"); // não esta sendo usado
      for(let i=0;i<levels.length;i++){
          if(porcent>levels[i].minValue && Nivelcorreto<levels.length-1){
              Nivelcorreto=Nivelcorreto+1;
@@ -178,7 +181,10 @@ function showAllresults(porcent){
      
         <div class="resultdesc">
             <img src="${listaQuizz[id].image}"/>
-            <div class="finalResultText"> Nome do Quiz: <strong>${listaQuizz[id].levels.text}</strong> </div>
+            <div class="finalResult"> 
+                <p class="finalResultText"> Nome do Quiz: <strong>${listaQuizz[id].levels[1].title}</strong> </p> 
+                <p class="finalResultText"> Descrição do Quiz: <strong>${listaQuizz[id].levels[1].text}</strong> </p> 
+            </div>
         </div>
 
         <div>
@@ -192,6 +198,19 @@ function showAllresults(porcent){
         Final.scrollIntoView();
         levels=[]
         Nivelcorreto=0;
+
+        //recarrega a pagina 2 quando clicado no botão
+        function reloadPage2(){
+            let questionBox=document.querySelector(".questionsBox");
+            questionBox.innerHTML="";
+            // quizzId=axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`);
+            // console.log(quizzId)
+            quizzId.then(printQuestions);
+        }
+        //volta para home
+        function Home(){
+            window.location.reload();
+        }
        
 }
  //recarrega a pagina 2 quando clicado no botão
@@ -205,14 +224,6 @@ function Home(){
     window.location.reload();
 }
 
-// pegar tamanho lista => quizz.questions[i].answers.length
-//quizz.questions.length
-// Show Results
-function showResult(){
-    if(questionA == 3){
-        console.log(correctA/3);
-    }
-}
 
 ///Aqui começa o createQuizz //// 
 
@@ -438,6 +449,11 @@ function readQuizzPg3() {
     //let getId = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes') // add ~lucas
     //getId.then(getquizzId); // add ~lucas
     promise.then(refreshQuizzList);
+    promise.then(getidServer)
+}
+
+function getidServer(response){
+    console.log(response);
 }
 
 function refreshQuizzList(postedquizz){ ////show quizz n funcionando 
