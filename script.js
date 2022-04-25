@@ -78,31 +78,30 @@ function showQuizz(index){ //mostra o quizz selecionado
 }
 //Tela 2 responsável por mostrar as perguntas
 function printQuestions(quizz){
-    const dadosQuizz=quizz.data;
-    level=dadosQuizz.levels;
-    id=dadosQuizz.id;
+    const dadosdoQuizz=quizz.data;
+    level=dadosdoQuizz.levels;
+    id=dadosdoQuizz.id;
     window.scrollTo(0,0);
-    questionL = dadosQuizz.questions.length; //numero de perguntas
+    questionL = dadosdoQuizz.questions.length; //numero de perguntas
     
-    for(let i=0;i<dadosQuizz.questions.length;i++){
+    for(let i=0;i<dadosdoQuizz.questions.length;i++){
         const questionsBox=document.querySelector(".questionsBox");
         questionsBox.innerHTML+=
         `<div class="perguntas" data-id="${listaQuizz[i].index}">
-        <div style="background-color: ${dadosQuizz.questions[i].color}" class="titleQuestions white">
-        ${dadosQuizz.questions[i].title}</div>
+        <div style="background-color: ${dadosdoQuizz.questions[i].color}" class="titleQuestions white">
+        ${dadosdoQuizz.questions[i].title}</div>
         <div class="all"></div> 
         </div>`
 
-        
-        let shuffled=dadosQuizz.questions[i].answers;
-        shuffled=shuffled.sort(shuffling);
+        const TotalResponses=document.querySelectorAll(".all")
+        let shuffled=dadosdoQuizz.questions[i].answers
+        shuffled.sort(shuffling)
 
         for(let k=0;k<shuffled.length;k++){
-            document.querySelector(".all").innerHTML+=`
-            <div class="alternative" id="${shuffled[k].isCorrectAnswer}" onclick="AnswerClicked(this)">
-                <div><img class="QuestionFigure" src="${shuffled[k].image}"/></div>
-                <p class="QuestionAltenative">${shuffled[k].text}</p>
-            </div>
+            TotalResponses[i].innerHTML+=`<div class="alternative" id="${shuffled[k].isCorrectAnswer}" 
+             onclick="AnswerClicked(this)">
+            <div><img class="QuestionFigure" src="${shuffled[k].image}"/></div>
+            <p class="QuestionAltenative">${shuffled[k].text}</p> </div>
             `
         }
     }
@@ -113,8 +112,14 @@ function shuffling(){
 }
     
 // Check for correct answer:
+// Check for correct answer:
 function AnswerClicked(answer){
     let valid = answer.id
+    const QuestiosImages=[]
+    let father=answer.parentNode
+    const all=father.children;
+    console.log(answer.image)
+
     if(valid == "true"){
         answer.classList.add('correctBorder')
             correctA += 1;
@@ -124,7 +129,70 @@ function AnswerClicked(answer){
         questionA ++;
         console.log(questionA);
         showResult();
+
+
+    for(let i=0;i<all.length;i++){
+        QuestiosImages.push(all[i].firstElementChild)
+        console.log(QuestiosImages)
+       // QuestiosImages[i].innerHTML=`<div class="whiteEffect"></div>`
+        all[i].removeAttribute("onclick")
+    }
+
+    let QuestionsSet=document.querySelector(".questionsBox").childNodes;
+    if(father.parentNode.nextElementSibling){
+        setTimeout(goDown,2000,father)
+    }
+    else{
+        let TotalRightAnswers=Math.floor((correctA/QuestionsSet.length)*100)
+        setTimeout(showAllresults,2000,TotalRightAnswers)
+    }
 }
+//Faz o scroll
+ function goDown(element){
+    element.parentNode.nextElementSibling.scrollIntoView()
+ }
+
+ //mostra o resultado final ao usuário
+ let Nivelcorreto=0;
+ function showAllresults(porcent){
+     let BoxQuestions=document.querySelector(".questionsBox");
+    const imagemFInal=document.querySelector(".header2");
+     for(let i=0;i<levels.length;i++){
+         if(porcent>levels[i].minValue && Nivelcorreto<levels.length-1){
+             Nivelcorreto=Nivelcorreto+1;
+         }
+     }
+     BoxQuestions.innerHTML+=`<div class="QuizzFinalResult bold perguntas">
+        <div class="headerResultTest white">Você acertou ${porcent}% das questões do quiz , Serumaninho :))</div>
+     
+        <div>
+            <img src="${listaQuizz[id].image}"/>
+            <div> Nome do Quiz: <strong>${listaQuizz[id].title}</strong> </div>
+            <div> Nome do Quiz: <strong>${listaQuizz[id].text}</strong> </div>
+        </div>
+
+        <div>
+        <button class="reiniciar" onclick="reloadPage2()">Jogar de novo</button>
+        <button class="GoHomePage" onclick="Home()">Ir para Home</button>
+        </div>
+
+        </div>`
+
+        let Final=document.querySelector(".QuizzFinalResult");
+        Final.scrollIntoView();
+        levels=[]
+        Nivelcorreto=0;
+       
+ }
+ //recarrega a pagina 2 quando clicado no botão
+ function reloadPage2(){
+     let questionBox=document.querySelector(".questionsBox");
+     questionBox.innerHTML="";
+ }
+ //volta para home
+ function Home(){
+     window.location.reload();
+ }
 
 // pegar tamanho lista => quizz.questions[i].answers.length
 //quizz.questions.length
@@ -134,6 +202,7 @@ function showResult(){
         console.log(correctA/3);
     }
 }
+
 ///Aqui começa o createQuizz //// 
 
 function createQuizzPg1(){ //Primeira tela para criar quizz
