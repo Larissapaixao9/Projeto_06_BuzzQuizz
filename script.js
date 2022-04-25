@@ -280,10 +280,42 @@ function createQuizzPg2(){
     <h2>Crie suas perguntas</h2>
     `;
     for(let i =0;i<questions;i++){
-        document.querySelector(".page").innerHTML+=`
-        <div class="whiteBox">
-            <h2>Pergunta ${i+1} </h2>
-            <ion-icon name="create-outline"></ion-icon>
+        if(i==0){
+            document.querySelector(".page").innerHTML+=`
+            <div class="whiteBox">
+                <h2>Pergunta ${i+1} </h2>
+                <input id="a${i+1}1" type="text" placeholder="Texto da pergunta" minlength="20">
+                <input id="a${i+1}2" type="text" placeholder="Cor de fundo da pergunta">
+                <h2>Resposta correta</h2>
+                <input id="a${i+1}3" type="text" placeholder="Resposta correta">
+                <input id="a${i+1}4" type="url" placeholder="URL de imagem">
+                <h2>Respostas incorretas</h2>
+                <input id="a${i+1}5" type="text" placeholder="Resposta incorreta 1">
+                <input id="a${i+1}6" type="url" placeholder="URL de imagem 1">
+                <input id="a${i+1}7" type="text" placeholder="Resposta incorreta 2">
+                <input id="a${i+1}8" type="url" placeholder="URL de imagem 2">
+                <input id="a${i+1}9" type="text" placeholder="Resposta incorreta 3">
+                <input id="a${i+1}10" type="url" placeholder="URL de imagem 3">
+            </div>
+            `;
+        }else{
+            document.querySelector(".page").innerHTML+=`
+            <div id="Pergunta ${i+1}" class="whiteBox">
+                <div class="row">
+                    <h2>Pergunta ${i+1}</h2>
+                    <ion-icon onclick="showQuestion(${i},this)" name="create-outline"></ion-icon>
+                </div>
+            </div>
+            `;
+        }
+    }
+    document.querySelector(".page").innerHTML+=`
+    <button class="redBox" onclick="readQuizzPg2()">Prosseguir pra criar níveis</button>
+    `;
+}
+function showQuestion(i,element){
+    element.classList.add("pointerEventsNone");
+    document.getElementById(`Pergunta ${i+1}`).innerHTML+=`
             <input id="a${i+1}1" type="text" placeholder="Texto da pergunta" minlength="20">
             <input id="a${i+1}2" type="text" placeholder="Cor de fundo da pergunta">
             <h2>Resposta correta</h2>
@@ -296,13 +328,7 @@ function createQuizzPg2(){
             <input id="a${i+1}8" type="url" placeholder="URL de imagem 2">
             <input id="a${i+1}9" type="text" placeholder="Resposta incorreta 3">
             <input id="a${i+1}10" type="url" placeholder="URL de imagem 3">
-        </div>
     `;
-    }
-    document.querySelector(".page").innerHTML+=`
-    <button class="redBox" onclick="readQuizzPg2();">Prosseguir pra criar níveis</button>
-    `;
-    
 }
 function readQuizzPg2() {
 
