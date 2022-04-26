@@ -581,18 +581,17 @@ function refreshQuizzList(postedquizz){ ////show quizz n funcionando
 
 function postedQuizz(quizz){ // TENTAR CONSERTAR CONFLITO COM O 'SHOWQUIZZ'. PROVAVELMENTE SEJA PQ QUIZZ.DATA.ID ENTRA EM CONFLITO COM O INDEX QUE RECEBE O PARAMETRO CITADO ANTERIORMENTE E ADICIONA .TITLE, DAI FICA QUIZZ.DATA.ID.TITLE, E CONFLITA PQ ELES NÃO TEM RELAÇÃO DE DEPENDENCIA.
     document.querySelector(".page").innerHTML=`
-    <div class="center">
-    <h2>Seu quizz está pronto</h2>
-    <button id="${quizz.data.id}"  class="quizzBox"> 
-    
-        <img src="${quizz.data.image}" alt="thumb"> 
-        <div class="gradient">
-        
-        <h1 class="QuizzTitle white "> ${quizz.data.title} </h1>
-       
-    </button>
-    <button class="redBox" onclick="showQuizz(${quizz.data.id})">Acessar Quizz</button>
-    <h4 onclick="homePage()">Voltar pra home</h4>
+    <div class="column">
+        <h2>Seu quizz está pronto</h2>
+        <div id="${quizz.data.id}"  class="quizzBox"> 
+            <img src="${quizz.data.image}" alt="thumb"> 
+            <div class="gradient"> </div>
+            <h1 class="QuizzTitle white "> ${quizz.data.title} </h1>  
+        </div>
+        <button class="redBox" onclick="showQuizz(${quizz.data.id})">Acessar Quizz</button>
+
+        <h4 onclick="homePage()">Voltar pra home</h4>
+    </div>
     
     `;
 }
