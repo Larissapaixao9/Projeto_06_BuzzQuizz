@@ -92,6 +92,7 @@ function showQuizz(index){ //mostra o quizz selecionado
 //Tela 2 responsável por mostrar as perguntas
 function printQuestions(dadosdoQuizz){
     //const dadosdoQuizz=quizz.data;
+    
     level=dadosdoQuizz.levels;
     id=dadosdoQuizz.id;
     window.scrollTo(0,0);
@@ -102,7 +103,8 @@ function printQuestions(dadosdoQuizz){
         questionsBox.innerHTML+=
         `<div class="perguntas" data-id="${listaQuizz[i].index}">
         <div style="background-color: ${dadosdoQuizz.questions[i].color}" class="titleQuestions white">
-        ${dadosdoQuizz.questions[i].title}</div>
+        <h2 class="white">${dadosdoQuizz.questions[i].title}</h1>
+        </div>
         <div class="all"></div> 
         </div>`
 
@@ -213,7 +215,10 @@ function reloadPage2(){
     let questionBox=document.querySelector(".questionsBox");
     questionBox.innerHTML="";
     quizzId=axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`);
-    quizzId.then(printQuestions);
+    quizzId.then(replayQuizz);
+}
+function replayQuizz(quizz){ //trata o resultado do then e envia somente os dados para o printQuestions
+    printQuestions(quizz.data);
 }
 
 //////////////////Aqui começa o createQuizz ///////////////// 
