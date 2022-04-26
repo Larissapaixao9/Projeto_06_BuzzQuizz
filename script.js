@@ -141,13 +141,12 @@ function AnswerClicked(answer){
     console.log(answer.image);
 
     if(valid == "true"){
-        answer.classList.add('green')
-            correctA += 1;
-        } else{
-            answer.classList.add('red')
-        }
-        questionA ++;
-        console.log(questionA);
+    answer.classList.add('green')
+        correctA += 1;
+    } else{
+        answer.classList.add('red')
+    }
+    questionA ++;
 
 
     for(let i=0;i<all.length;i++){
@@ -174,19 +173,25 @@ function goDown(element){
 function showAllresults(porcent){
     let BoxQuestions=document.querySelector(".questionsBox");
     
-    for(let i=0;i<levels.length;i++){
-        if(porcent>levels[i].minValue && Nivelcorreto<levels.length-1){
-            Nivelcorreto=Nivelcorreto+1;
+    // for(let i=0;i<levels.length;i++){
+    //     if(porcent>levels[i].minValue && Nivelcorreto<levels.length-1){
+    //         Nivelcorreto=Nivelcorreto+1;
+    //     }
+    // }
+    let userLevel;
+    for(let i=0;i<listaQuizz[showingQuizzIndex].levels.length;i++){
+        if(listaQuizz[showingQuizzIndex].levels[i].minValue<=porcent){
+            userlevel=i;
         }
     }
+
      BoxQuestions.innerHTML+=`<div class="QuizzFinalResult bold perguntas">
-        <div class="headerResultTest white">Você acertou ${porcent}% das questões do quiz , Serumaninho :))</div>
+        <div class="headerResultTest white"><h2 class="white">Você acetou ${porcent}%, ${listaQuizz[showingQuizzIndex].levels[userlevel].title}</h2></div>
      
         <div class="resultdesc">
-            <img src="${listaQuizz[showingQuizzIndex].image}"/>
+            <img src="${listaQuizz[showingQuizzIndex].levels[userlevel].image}"/>
             <div class="finalResult"> 
-                <p class="finalResultText"> Nome do Quiz: <strong>${listaQuizz[showingQuizzIndex].levels[1].title}</strong> </p> 
-                <p class="finalResultText"> Descrição do Quiz: <strong>${listaQuizz[showingQuizzIndex].levels[1].text}</strong> </p> 
+                <p class="finalResultText"> <strong>${listaQuizz[showingQuizzIndex].levels[userlevel].text}</strong> </p> 
             </div>
         </div>
 
