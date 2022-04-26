@@ -26,8 +26,8 @@ let answer={
     isCorrectAnswer: true
 };
 let emptyAnswer={
-    text: "",
-    image: "",
+    text: " ",
+    image: " ",
     isCorrectAnswer: false
 };
 let level ={
@@ -37,10 +37,15 @@ let level ={
     minValue: 0
 };
 
-////////////////  Codigo executado ao iniciar ////////////////
+/////////////////////  Codigo executado ao iniciar  //////////////////
 homePage();
+//homepage
+function refreshHome(){
+    window.location.reload();
+}
 
 function homePage(){// cria a homepage com meus quizzes e outros quizzes
+    
     document.querySelector(".page").innerHTML=` 
     <div class="myQuizzes">
         <h4 >Você não criou nenhum <br> quizz ainda :(</h4>
@@ -171,7 +176,7 @@ function goDown(element){
 
 function showAllresults(porcent){
      let BoxQuestions=document.querySelector(".questionsBox");
-    const imagemFInal=document.querySelector(".header2"); // não esta sendo usado
+    
      for(let i=0;i<levels.length;i++){
          if(porcent>levels[i].minValue && Nivelcorreto<levels.length-1){
              Nivelcorreto=Nivelcorreto+1;
@@ -190,7 +195,7 @@ function showAllresults(porcent){
 
         <div class="buttons">
             <button class="reiniciar white" onclick="reloadPage2()">Jogar de novo</button>
-            <button class="GoHomePage" onclick="Home()">Ir para Home</button>
+            <button class="GoHomePage" onclick="refreshHome()">Ir para Home</button>
         </div>
 
         </div>`
@@ -199,37 +204,17 @@ function showAllresults(porcent){
         Final.scrollIntoView();
         levels=[]
         Nivelcorreto=0;
-
-        //recarrega a pagina 2 quando clicado no botão
-        function reloadPage2(){
-            let questionBox=document.querySelector(".questionsBox");
-            questionBox.innerHTML="";
-            // quizzId=axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`);
-            // console.log(quizzId)
-            quizzId.then(printQuestions);
-        }
-        //volta para home
-        function Home(){
-            window.location.reload();
-        }
-       
 }
+
  //recarrega a pagina 2 quando clicado no botão
 function reloadPage2(){
     let questionBox=document.querySelector(".questionsBox");
     questionBox.innerHTML="";
     quizzId=axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`);
-   quizzId.then(printQuestions);
-    
+    quizzId.then(printQuestions);
 }
 
-//volta para home
-function Home(){
-    window.location.reload();
-}
-
-
-///Aqui começa o createQuizz //// 
+//////////////////Aqui começa o createQuizz ///////////////// 
 
 function createQuizzPg1(){ //Primeira tela para criar quizz
     // ADICIONEI CLASS PRA H2, PRA PODER DAR MARGIN AUTO NELA E NA WHITEBOX, PRA PODER CENTRALIZAR AS DUAS NA PAGE. ISSO PQ TIREI O MARGIN DA CLASS 'PAGE' NO CSS, SÓ ASSIM CONSEGUI RESOLVER O 'TODOS OS QUIZZES' QUE ESTAVA CENTRALIZADO. AGORA O H2 CLASS 'PAGETITLE' E O WHITEBOX TEM MARGIN AUTO.
@@ -349,7 +334,6 @@ function showQuestion(i,element){
     `;
 }
 function readQuizzPg2() {
-
     for(let i =0;i<questions;i++){
         question.title=document.getElementById(`a${i+1}1`).value;
         question.color=document.getElementById(`a${i+1}2`).value;
@@ -483,27 +467,111 @@ function readQuizzPg3() {
     //let getId = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes') // add ~lucas
     //getId.then(getquizzId); // add ~lucas
     promise.then(refreshQuizzList);
-    promise.then(getidServer)
+    promise.then(getidServer);
 }
+let testquizz={
+    "title": "Miranha no multiverso",
+    "image": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+    "questions": [
+        {
+            "title": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+            "color": "#111111",
+            "answers": [
+                {
+                    "text": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+                    "image": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+                    "isCorrectAnswer": true
+                },
+                {
+                    "text": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+                    "image": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+                    "isCorrectAnswer": false
+                }
+            ]
+        },
+        {
+            "title": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+            "color": "#333333",
+            "answers": [
+                {
+                    "text": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+                    "image": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+                    "isCorrectAnswer": true
+                },
+                {
+                    "text": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+                    "image": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+                    "isCorrectAnswer": false
+                }
+            ]
+        },
+        {
+            "title": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+            "color": "#555555",
+            "answers": [
+                {
+                    "text": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+                    "image": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+                    "isCorrectAnswer": true
+                },
+                {
+                    "text": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+                    "image": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+                    "isCorrectAnswer": false
+                }
+            ]
+        }
+    ],
+    "levels": [
+        {
+            "title": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+            "image": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+            "text": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+            "minValue": 60
+        },
+        {
+            "title": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+            "image": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+            "text": "https://nerdvision.com.br/wp-content/uploads/2021/08/homem-aranha-3-1.jpg",
+            "minValue": 0
+        }
+    ]
+};
+function test(){
+    let promise=axios.post('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes',testquizz);
+    //let getId = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes') // add ~lucas
+    //getId.then(getquizzId); // add ~lucas
+    promise.then(refreshQuizzList);
+    promise.then(getidServer);
+    console.log("entrei no test");
+}
+
+// function localStorage(idcriadoagr){
+//     let listausuario = get localStorage;
+//     listausuario=listausuario+idcriadoagr;
+//     post locastorage listausuario;
+// }
 
 function getidServer(response){
     console.log(response);
     let myquizzid = response.data.id;
-    console.log(myquizzid)
+    console.log(myquizzid);
     myQuizz+=myquizzid;
-    console.log(myQuizz)
-    
+    console.log(myQuizz);
 }
 
 function refreshQuizzList(postedquizz){ ////show quizz n funcionando 
     let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes');
     promise.then(function a(quizzes){
         listaQuizz = quizzes.data;
+        console.log(listaQuizz);
+        console.log("postedquizz"+postedquizz);
         postedQuizz(postedquizz);
     }
     );
     for(i = 0; i < listaQuizz.length; i++){ 
         if(postedquizz.data.id==listaQuizz[i].id){
+            console.log("if ids");
             showQuizz(i);    
         }
     }
@@ -511,14 +579,16 @@ function refreshQuizzList(postedquizz){ ////show quizz n funcionando
 
 function postedQuizz(quizz){ // TENTAR CONSERTAR CONFLITO COM O 'SHOWQUIZZ'. PROVAVELMENTE SEJA PQ QUIZZ.DATA.ID ENTRA EM CONFLITO COM O INDEX QUE RECEBE O PARAMETRO CITADO ANTERIORMENTE E ADICIONA .TITLE, DAI FICA QUIZZ.DATA.ID.TITLE, E CONFLITA PQ ELES NÃO TEM RELAÇÃO DE DEPENDENCIA.
     document.querySelector(".page").innerHTML=`
+    <div class="center"></div>
     <h2>Seu quizz está pronto</h2>
     <button id="${quizz.data.id}"  class="quizzBox"> 
         <img src="${quizz.data.image}" alt="thumb"> 
         <div class="gradient"></div> 
-        <h1 class="QuizzTitle white"> ${quizz.data.title} </h1>
+        <h1 class="QuizzTitle white "> ${quizz.data.title} </h1>
     </button>
     <button class="redBox" onclick="showQuizz(${quizz.data.id})">Acessar Quizz</button>
     <h4 onclick="homePage()">Voltar pra home</h4>
+    
     `;
 }
 

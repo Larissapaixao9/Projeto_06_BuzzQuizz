@@ -226,7 +226,9 @@ ion-icon{
     
   }
   .QuizzTitle{
-      position: absolute;
+    position: absolute;
+    left:0px;
+    bottom: 0px;
   }
   .page2Background {
     height: 676px;
