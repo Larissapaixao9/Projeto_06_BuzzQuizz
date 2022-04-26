@@ -63,7 +63,7 @@ function getQuizzes(){ //faz get na lista de quizzes
     let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes');
     promise.then(printQuizzes);
 }
-
+let showingQuizzIndex;
 function printQuizzes(quizzes){ //mostra a lista de quizzes no html homepage
     let otherQuizzes = document.querySelector(".other-quizzes"); // oQuizzes => otherQuizzes
     listaQuizz = quizzes.data;
@@ -79,27 +79,25 @@ function printQuizzes(quizzes){ //mostra a lista de quizzes no html homepage
 }
 
 function showQuizz(index){ //mostra o quizz selecionado
-    console.log(index)
-    console.log(listaQuizz[index].image)
+    showingQuizzIndex=index;
     document.querySelector(".header").classList.add("marginzero"); //margin 0 no topo
     document.querySelector(".page").innerHTML = `
     <div class="gradient2"></div> 
     <img class="header2" src="${listaQuizz[index].image}" alt="thumb"/> 
     <h1 class="QuizzTitle white "> ${listaQuizz[index].title} </h1>
     `;
-    
-    quizzId=axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${index}`);
-    quizzId.then(printQuestions);
+    printQuestions(listaQuizz[index]);
 }
+
 //Tela 2 responsável por mostrar as perguntas
-function printQuestions(quizz){
-    const dadosdoQuizz=quizz.data;
+function printQuestions(dadosdoQuizz){
+    //const dadosdoQuizz=quizz.data;
     level=dadosdoQuizz.levels;
     id=dadosdoQuizz.id;
     window.scrollTo(0,0);
     questionL = dadosdoQuizz.questions.length; //numero de perguntas
     
-    for(let i=0;i<dadosdoQuizz.questions.length;i++){
+    for(let i=0;i<questionL;i++){
         const questionsBox=document.querySelector(".questionsBox");
         questionsBox.innerHTML+=
         `<div class="perguntas" data-id="${listaQuizz[i].index}">
@@ -110,7 +108,6 @@ function printQuestions(quizz){
 
         const TotalResponses=document.querySelectorAll(".all");
         let shuffled=dadosdoQuizz.questions[i].answers;
-        console.log(shuffled)
         shuffled.sort(shuffling);
 
         for(let k=0;k<shuffled.length;k++){
@@ -175,21 +172,21 @@ function goDown(element){
 }
 
 function showAllresults(porcent){
-     let BoxQuestions=document.querySelector(".questionsBox");
+    let BoxQuestions=document.querySelector(".questionsBox");
     
-     for(let i=0;i<levels.length;i++){
-         if(porcent>levels[i].minValue && Nivelcorreto<levels.length-1){
-             Nivelcorreto=Nivelcorreto+1;
-         }
-     }
+    for(let i=0;i<levels.length;i++){
+        if(porcent>levels[i].minValue && Nivelcorreto<levels.length-1){
+            Nivelcorreto=Nivelcorreto+1;
+        }
+    }
      BoxQuestions.innerHTML+=`<div class="QuizzFinalResult bold perguntas">
         <div class="headerResultTest white">Você acertou ${porcent}% das questões do quiz , Serumaninho :))</div>
      
         <div class="resultdesc">
-            <img src="${listaQuizz[id].image}"/>
+            <img src="${listaQuizz[showingQuizzIndex].image}"/>
             <div class="finalResult"> 
-                <p class="finalResultText"> Nome do Quiz: <strong>${listaQuizz[id].levels[1].title}</strong> </p> 
-                <p class="finalResultText"> Descrição do Quiz: <strong>${listaQuizz[id].levels[1].text}</strong> </p> 
+                <p class="finalResultText"> Nome do Quiz: <strong>${listaQuizz[showingQuizzIndex].levels[1].title}</strong> </p> 
+                <p class="finalResultText"> Descrição do Quiz: <strong>${listaQuizz[showingQuizzIndex].levels[1].text}</strong> </p> 
             </div>
         </div>
 
@@ -579,12 +576,15 @@ function refreshQuizzList(postedquizz){ ////show quizz n funcionando
 
 function postedQuizz(quizz){ // TENTAR CONSERTAR CONFLITO COM O 'SHOWQUIZZ'. PROVAVELMENTE SEJA PQ QUIZZ.DATA.ID ENTRA EM CONFLITO COM O INDEX QUE RECEBE O PARAMETRO CITADO ANTERIORMENTE E ADICIONA .TITLE, DAI FICA QUIZZ.DATA.ID.TITLE, E CONFLITA PQ ELES NÃO TEM RELAÇÃO DE DEPENDENCIA.
     document.querySelector(".page").innerHTML=`
-    <div class="center"></div>
+    <div class="center">
     <h2>Seu quizz está pronto</h2>
     <button id="${quizz.data.id}"  class="quizzBox"> 
+    
         <img src="${quizz.data.image}" alt="thumb"> 
-        <div class="gradient"></div> 
+        <div class="gradient">
+        
         <h1 class="QuizzTitle white "> ${quizz.data.title} </h1>
+       
     </button>
     <button class="redBox" onclick="showQuizz(${quizz.data.id})">Acessar Quizz</button>
     <h4 onclick="homePage()">Voltar pra home</h4>
