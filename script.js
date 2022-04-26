@@ -186,7 +186,7 @@ function showAllresults(porcent){
     }
 
      BoxQuestions.innerHTML+=`<div class="QuizzFinalResult bold perguntas">
-        <div class="headerResultTest white"><h2 class="white">Você acetou ${porcent}%, ${listaQuizz[showingQuizzIndex].levels[userlevel].title}</h2></div>
+        <div class="headerResultTest white"><h2 class="white">Você acertou ${porcent}%, ${listaQuizz[showingQuizzIndex].levels[userlevel].title}</h2></div>
      
         <div class="resultdesc">
             <img src="${listaQuizz[showingQuizzIndex].levels[userlevel].image}"/>
@@ -566,20 +566,19 @@ function refreshQuizzList(postedquizz){ ////show quizz n funcionando
     let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes');
     promise.then(function a(quizzes){
         listaQuizz = quizzes.data;
-        console.log(listaQuizz);
-        console.log("postedquizz"+postedquizz);
+        for(i = 0; i < listaQuizz.length; i++){ 
+            if(postedquizz.data.id==listaQuizz[i].id){
+                showingQuizzIndex=i;    
+            }
+        }
         postedQuizz(postedquizz);
     }
     );
-    for(i = 0; i < listaQuizz.length; i++){ 
-        if(postedquizz.data.id==listaQuizz[i].id){
-            console.log("if ids");
-            showQuizz(i);    
-        }
-    }
+    
 }
 
 function postedQuizz(quizz){ // TENTAR CONSERTAR CONFLITO COM O 'SHOWQUIZZ'. PROVAVELMENTE SEJA PQ QUIZZ.DATA.ID ENTRA EM CONFLITO COM O INDEX QUE RECEBE O PARAMETRO CITADO ANTERIORMENTE E ADICIONA .TITLE, DAI FICA QUIZZ.DATA.ID.TITLE, E CONFLITA PQ ELES NÃO TEM RELAÇÃO DE DEPENDENCIA.
+    listaQuizz
     document.querySelector(".page").innerHTML=`
     <div class="column">
         <h2>Seu quizz está pronto</h2>
@@ -588,7 +587,7 @@ function postedQuizz(quizz){ // TENTAR CONSERTAR CONFLITO COM O 'SHOWQUIZZ'. PRO
             <div class="gradient"> </div>
             <h1 class="QuizzTitle white "> ${quizz.data.title} </h1>  
         </div>
-        <button class="redBox" onclick="showQuizz(${quizz.data.id})">Acessar Quizz</button>
+        <button class="redBox" onclick="showQuizz(${showingQuizzIndex})">Acessar Quizz</button>
 
         <h4 onclick="homePage()">Voltar pra home</h4>
     </div>
