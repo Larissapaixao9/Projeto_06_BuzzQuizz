@@ -95,6 +95,35 @@ ion-icon{
     width: 1050px;
     height: 181px;
 }
+
+.myQuizzesFull{
+    margin: 0 auto 76px auto;
+    background-color: #FAFAFA;
+    display: flex;
+    flex-wrap: wrap;
+    width: 1100px;
+    height: auto;
+    column-gap: 6px;
+    row-gap: 6px;
+}
+
+.myQuizzesTitle{
+    margin: 56px auto 10px auto;
+    width: 1050px;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+}
+
+.myQuizzesTitle p{
+    font-size: 20px;
+}
+.myQuizzesTitle ion-icon{
+    color: red;
+    font-size: 34px;
+    margin-left: 16px;
+}
+
 .criarQuizzText{
     display: flex;
     align-items: center;
@@ -110,6 +139,9 @@ ion-icon{
     text-align: center;
     margin-top: 34px;
     cursor: pointer;
+}
+.hidden{
+    display: none;
 }
 .pageTitle{
     margin: 10px auto;
@@ -146,12 +178,11 @@ ion-icon{
 }
 .other-quizzes{
     margin: 12px auto;
-    justify-content: center;
     display: flex;
     flex-wrap: wrap;
     column-gap: 6px;
     row-gap: 6px;
-    width:1150px;
+    width:1100px;
 }
 .gradient {
     width: 340px;

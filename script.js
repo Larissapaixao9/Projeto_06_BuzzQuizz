@@ -1,3 +1,4 @@
+let deslist = [];
 let listaQuizz = []; //variavel com array dos quizzes
 let myQuizz;
 let title;
@@ -46,7 +47,11 @@ function refreshHome(){
 
 function homePage(){// cria a homepage com meus quizzes e outros quizzes
     
-    document.querySelector(".page").innerHTML=` 
+    document.querySelector(".page").innerHTML=`
+    <div class="myQuizzesTitle hidden">
+        <p> Seus Quizzes </p>
+        <ion-icon onclick="createQuizzPg1()" name="add-circle"></ion-icon>
+    </div> 
     <div class="myQuizzes">
         <h4 >Você não criou nenhum <br> quizz ainda :(</h4>
         <p class="criarQuizzText red" onclick="createQuizzPg1()">Criar Quizz</p>
@@ -59,9 +64,38 @@ function homePage(){// cria a homepage com meus quizzes e outros quizzes
     getQuizzes();
 }
 
+function addMyQuizzes(){
+    outlocalStorage()
+    console.log(myQuizz)
+
+    if (myQuizz != null){
+        document.querySelector(".myQuizzes").innerHTML = ""
+        document.querySelector(".myQuizzes").classList.add("myQuizzesFull")
+        document.querySelector(".myQuizzesFull").classList.remove("myQuizzes")
+        document.querySelector(".myQuizzesTitle").classList.remove("hidden")
+    }
+    console.log(listaQuizz)
+    for(i = 0; i < listaQuizz.length; i++){
+        for(j = 0; j < myQuizz.length; j++){   
+            if(myQuizz[j] == listaQuizz[i].id){
+            console.log(listaQuizz[i].id)
+            document.querySelector(".myQuizzesFull").innerHTML += `
+            <button id="${listaQuizz[i].id}" onclick="showQuizz(${i})" class="quizzBox"> 
+            <img src="${listaQuizz[i].image}" alt="thumb"> 
+            <div class="gradient"></div> 
+            <h1 class="QuizzTitle white"> ${listaQuizz[i].title} </h1>
+            </button>`
+            console.log('ok')
+            }
+        }
+    }
+}
+
+
 function getQuizzes(){ //faz get na lista de quizzes
     let promise = axios.get('https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes');
     promise.then(printQuizzes);
+    promise.then(addMyQuizzes);
 }
 let showingQuizzIndex;
 function printQuizzes(quizzes){ //mostra a lista de quizzes no html homepage
@@ -563,8 +597,22 @@ function getidServer(response){
     console.log(response);
     let myquizzid = response.data.id;
     console.log(myquizzid);
-    myQuizz+=myquizzid;
+    myQuizz.push(myquizzid);
     console.log(myQuizz);
+    inlocalStorage();
+}
+
+function inlocalStorage(){
+    let quizzSerial = JSON.stringify(myQuizz);
+    localStorage.setItem('list',quizzSerial)
+    console.log(localStorage)
+}
+
+function outlocalStorage(){
+    let list = localStorage.getItem('list')
+    console.log(list)
+    myQuizz = JSON.parse(list)
+    console.log(myQuizz)
 }
 
 function refreshQuizzList(postedquizz){ ////show quizz n funcionando 
